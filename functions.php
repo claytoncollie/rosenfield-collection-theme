@@ -25,7 +25,7 @@ function rc_theme_setup() {
 	
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
-	define( 'CHILD_THEME_URL', 'https://www.rosenfieldcollection.com' );
+	define( 'CHILD_THEME_URL', 'https://www.bitbucket.org/claytoncollie/rosenfieldcollection' );
 	define( 'CHILD_THEME_VERSION', '1.0.0' );
 	
 	//* Enqueue scripts and styles
