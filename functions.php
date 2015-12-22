@@ -87,13 +87,16 @@ function rc_theme_setup() {
 	add_filter( 'post_class', 'rc_entry_class' );
 	
 	// Read more button
-	add_action( 'genesis_entry_header' , 'rc_read_more', 12 );
+	add_action( 'genesis_entry_content' , 'rc_read_more', 12 );
 
 	//* Force full-width-content layout setting
 	add_filter( 'genesis_site_layout', '__genesis_return_full_width_content' );
 	
 	//* Add grid body class
 	add_filter( 'body_class', 'rc_grid_body_class' );
+	
+	//Filter Genesis H1 Post Titles to remove hyperlinks on Category pages
+	//add_filter( 'genesis_post_title_output', 'rc_post_title_output', 15 );
 
 	// Register widget areas
 	//-----------------------------------------------------------------------------------------------------
@@ -143,7 +146,7 @@ function rc_load_scripts_styles() {
 // add rc-grid body class to get styles, do no load on single post page
 function rc_grid_body_class( $classes ) {
 
-	if( is_singular('post')  ) {
+	if( is_singular('post') || is_page('add-object')  ) {
 		
 		$classes[] = '';
 		return $classes;
@@ -171,6 +174,30 @@ function rc_entry_class( $classes ) {
 		$classes[] = 'first';
 		
 	return $classes;
+}
+
+// Filter post title to add author name
+function rc_post_title_output( $title ) {
+	
+	$title = apply_filters( 'genesis_post_title_text', get_the_title() );
+
+	$wrap = 'h2';
+
+	//* Also, if HTML5 with semantic headings, wrap in H1
+	$wrap = genesis_html5() && genesis_get_seo_option( 'semantic_headings' ) ? 'h2' : $wrap;
+
+	//* Build the output
+	$output = genesis_markup( array(
+		'html5'   => "<{$wrap} %s>",
+		'xhtml'   => sprintf( '<%s class="entry-title">%s</%s>', $wrap, $title, $wrap ),
+		'context' => 'entry-title',
+		'echo'    => false,
+	) );
+
+	$output .= genesis_html5() ? "{$title}</{$wrap}>" : '';
+
+	return $output;
+
 }
 
 // Edit read more link
