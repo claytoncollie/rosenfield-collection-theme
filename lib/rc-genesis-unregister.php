@@ -48,3 +48,4 @@ remove_theme_support( 'genesis-inpost-layouts' );
 
 /** Remove favicon */
 remove_action('genesis_meta', 'genesis_load_favicon');
+remove_action( 'wp_head', 'genesis_load_favicon' );

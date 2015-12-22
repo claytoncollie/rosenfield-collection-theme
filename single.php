@@ -18,8 +18,10 @@ function rc_object_genesis_meta() {
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_object_scripts' );
 	
+	// Remove default loop
 	remove_action('genesis_loop','genesis_do_loop');
 	
+	// Add flex sldier loop
 	add_action('genesis_loop','rc_gallery_do_loop');
 
 }
@@ -27,8 +29,7 @@ function rc_object_genesis_meta() {
 // Enqueue scripts
 function rc_load_object_scripts() {
 	
-	wp_enqueue_script( 'flex-slider-min', get_bloginfo( 'stylesheet_directory' ) . '/js/jquery.flexslider-min.js', array( 'jquery' ), '1.0.0' );
-	wp_enqueue_script( 'flex-slider-init', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider-init.js', array( 'jquery' ), '1.0.0' );
+	wp_enqueue_script( 'flex-slider', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider-init.js', '', '1.0.0', false );
 
 }
 
