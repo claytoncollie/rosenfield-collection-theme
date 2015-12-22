@@ -29,7 +29,7 @@ function rc_object_genesis_meta() {
 // Enqueue scripts
 function rc_load_object_scripts() {
 	
-	wp_enqueue_script( 'flex-slider', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider-init.js', '', '1.0.0', false );
+	wp_enqueue_script( 'flex-slider', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider.js', '', '1.0.0', false );
 
 }
 
