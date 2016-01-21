@@ -6,21 +6,6 @@
  * @link http://www.claytoncollie.com
  *
  */ 
-//* Customize search form input button text
-add_filter( 'genesis_search_button_text', 'rc_search_button_text' );
-function rc_search_button_text( $text ) {
- 
-	return esc_attr( '&#xf179;' );
- 
-}
-
-//Change search form text
-add_filter( 'genesis_search_text', 'rc_search_text' );
-function rc_search_text( $text ) {
-return ( 'What are you looking for?');
-}
-
-
 // Filter menu items, appending a a search icon at the end.
 add_filter( 'wp_nav_menu_items', 'rc_menu_extras', 10, 2 );
 function rc_menu_extras( $menu, $args ) {
@@ -29,7 +14,7 @@ function rc_menu_extras( $menu, $args ) {
 	if ( 'primary' !== $args->theme_location )
 		return $menu;
 	
-	$menu .= '<li class="menu-item alignright"><a id="trigger-overlay" class="search-icon" href="#"><span class="dashicons dashicons-search"></span></a></li>';
+	$menu .= '<li class="menu-item alignright"><a id="trigger-overlay" class="search-icon" href="#"><i class="fa fa-search"></i></a></li>';
 	
 	return $menu;
  

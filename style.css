@@ -43,7 +43,7 @@
 	- Site Header
 		- Title Area
 	- Site Navigation
-		- Header Navigation
+		- Header Navigationsearch
 		- Primary Navigation
 	- Content Area
 		- Welcome Message
@@ -365,12 +365,6 @@ input:hover[type="submit"],
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button {
 	display: none;
-}
-
-.rc-grid .dashicons,
-.artist-archive .dashicons {
-	font-size: 13px;
-	line-height: 2;
 }
 
 .more-link {
@@ -834,11 +828,8 @@ Site Header
 }
 
 .responsive-menu-icon::before {
-	content: "\f333";
-	display: inline-block;
-	font: normal 20px/1 'dashicons';
-	margin: 0 auto;
-	padding: 10px;
+	content: "\f0c9";
+	font-family: FontAwesome;
 	color: #fff;
 }
 
@@ -1032,17 +1023,10 @@ p.entry-meta {
 .entry-comments-link::before,
 .entry-tags::before,
 .entry-time::before {
-	display: inline-block;
-	font: normal 20px/1 'dashicons';
+	font-family: FontAwesome;
 	margin-right: 5px;
-	margin-top: 2px;
-	vertical-align: top;
-	-webkit-font-smoothing: antialiased;
 }
 
-.rc-grid .entry-time::before {
-	display: none;
-}
 
 .entry-author,
 .entry-comments-link,
@@ -1062,23 +1046,23 @@ p.entry-meta {
 }
 
 .entry-author::before {
-	content: "\f110";
+	content: "\f007";
 }
 
 .entry-categories::before {
-	content: "\f318";
+	content: "\f07c";
 }
 
 .entry-comments-link::before {
-	content: "\f101";
+	content: "\f086";
 }
 
 .entry-tags::before {
-	content: "\f323";
+	content: "\f02b";
 }
 
 .entry-time::before {
-	content: "\f469";
+	content: "\f017";
 }
 
 /* Pagination
@@ -1437,11 +1421,6 @@ Search Form Widget
 	padding: 8px 20px !important;
 }
 
-.search-icon .dashicons {
-	font-size: 20px;
-	line-height: 1;
-}
-
 body .overlay {
 	background: rgba(0,0,0,0.9);
 }
@@ -1485,15 +1464,6 @@ body .overlay .overlay-close {
 .overlay .search-form input[type="submit"]:hover {
 	color: #000;
 	background-color: #fff;
-}
-
-.searchandfilter select::after {
-	content: "\f347";
-	display: inline-block;
-	font: normal 20px/1 'dashicons';
-	margin: 0 auto;
-	padding: 10px;
-	color: #fff;
 }
 
 .overlay {
@@ -2229,9 +2199,9 @@ Media Queries
 	}
 
 	.genesis-nav-menu.responsive-menu > .menu-item-has-children:before {
-		content: "\f347";
+		content: "\f078";
 		float: right;
-		font: normal 16px/1 'dashicons';
+		font-family: FontAwesome;
 		height: 16px;
 		padding: 16px 20px;
 		right: 0;
@@ -2243,7 +2213,7 @@ Media Queries
 	}
 
 	.genesis-nav-menu.responsive-menu .menu-open.menu-item-has-children:before {
-		content: "\f343";
+		content: "\f077";
 	}
 
 	.genesis-nav-menu.responsive-menu .sub-menu {
@@ -2278,12 +2248,8 @@ Media Queries
 	
 	.menu-text {
 		color: #fff;
-		line-height: 1;
-		vertical-align: top;
-		margin-top: 13px;
-		display: inline-block;
 		text-transform: uppercase;
-		font-size: 14px;
+		margin-left: 10px;
 	}
 	
 	a.search-icon {
