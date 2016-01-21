@@ -12,24 +12,33 @@
 add_action( 'genesis_meta', 'rc_object_genesis_meta' );
 function rc_object_genesis_meta() {
 	
+	//* Force full-width-content layout setting
+	remove_filter( 'genesis_site_layout', '__genesis_return_full_width_content' );
+	
 	//* Force content-sidebar layout
 	add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_content_sidebar' );
 	
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_object_scripts' );
 	
+	//* Add the entry meta in the entry header (requires HTML5 theme support)
+	add_action( 'genesis_sidebar', 'genesis_post_info' );
+	
+	// Remove read more button from loop content section under header
+	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
+	
 	// Remove default loop
-	remove_action('genesis_loop','genesis_do_loop');
+	//remove_action('genesis_loop','genesis_do_loop');
 	
 	// Add flex sldier loop
-	add_action('genesis_loop','rc_gallery_do_loop');
+	add_action('genesis_entry_content','rc_gallery_do_loop');
 
 }
 
 // Enqueue scripts
 function rc_load_object_scripts() {
 	
-	wp_enqueue_script( 'flex-slider', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider.js', '', '1.0.0', false );
+	wp_enqueue_script( 'flex-slider', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider.js', array('jquery'), '', true );
 
 }
 

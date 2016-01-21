@@ -12,9 +12,6 @@
 add_action( 'genesis_meta', 'rc_page_add_object_genesis_meta' );
 function rc_page_add_object_genesis_meta() {
 	
-	//* Force content-sidebar layout
-	add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_content_sidebar' );
-	
 	//* Add entry content
 	add_action( 'genesis_entry_content', 'genesis_do_post_content' );
 	

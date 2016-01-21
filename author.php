@@ -22,7 +22,7 @@ function rc_artist_genesis_meta() {
 // Load Font Awesome
 function rc_load_font_awesome() {
 	
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
+	
 
 }
 

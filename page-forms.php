@@ -14,50 +14,60 @@ function rc_page_forms_genesis_meta() {
 	
 	//* Add grid body class
 	add_filter( 'body_class', 'rc_page_forms_body_class' );
-	function rc_page_forms_body_class( $classes ) {
-	
-		$classes[] = 'rc-page-taxonomy rc-title-description';
-		return $classes;
-	
-	}
 	
 	// Remove default loop, add under header to show page title and content if present
 	remove_action( 'genesis_loop', 'genesis_do_loop' );
 	add_action( 'genesis_after_header', 'genesis_do_loop' );
 	
 	// Remove read more button from loop content section under header
-	remove_action( 'genesis_entry_header' , 'rc_read_more', 12 );
+	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
 	
 	// Add custom loop to show at sub categories of FORM
 	add_action( 'genesis_loop', 'rc_taxonomy_list' );
-	function rc_taxonomy_list( $atts ) {
+			
+}
+
+// Custom body class
+function rc_page_forms_body_class( $classes ) {
 	
-		$args = array(
-			'taxonomy' => 'rc_form',
-			'post_type' => 'post',
-			'title_li' => '',
-			'depth' => 1,
-			'hide_empty' => 1,
-			'images' => 1,
-		);
-		
-		$get_posts_args = array(
-			'post_type' => $args['post_type'],
-			'number posts' => 1,
-			'meta_query' => array(
-				array(
-					'key' => '_thumbnail_id',
-					'compare' => 'EXISTS',
-				),
+	$classes[] = 'rc-page-taxonomy rc-title-description';
+	return $classes;
+
+}
+
+// CUstom loop to grab featured image for fist post in taxonomy
+function rc_taxonomy_list( $atts ) {
+	
+	$args = array(
+		'taxonomy' => 'rc_form',
+		'post_type' => 'post',
+		'title_li' => '',
+		'depth' => 1,
+		'hide_empty' => 1,
+		'images' => 1,
+	);
+	
+	$get_posts_args = array(
+		'post_type' => $args['post_type'],
+		'number posts' => 1,
+		'meta_query' => array(
+			array(
+				'key' => '_thumbnail_id',
+				'compare' => 'EXISTS',
 			),
-		);
-	
-	
-		if ( empty( $args['images'] ) ) {
-			wp_list_categories( $args );
-		} else {
-			$cats = get_categories( $args );
-			if( empty( $cats ) ) break;
+		),
+	);
+
+
+	if ( empty( $args['images'] ) ) {
+		
+		wp_list_categories( $args );
+		
+	} else {
+		
+		$cats = get_categories( $args );
+		
+		if( empty( $cats ) ) break;
 			foreach( $cats as $cat ) {
 				$img = '';
 				$get_posts_args[$args['taxonomy']] = $cat->slug;
@@ -77,16 +87,15 @@ function rc_page_forms_genesis_meta() {
 						
 						echo '<h2 class="entry-title" itemprop="headline"><a href="'.get_term_link( $cat ).'">'.$cat->name.'</a></h2>';
 					
-						echo '<a class="more-link" href="'.get_term_link( $cat ).'">View Form <span class="dashicons dashicons-arrow-right-alt"></span></a>';
+						echo '<a class="more-link" href="'.get_term_link( $cat ).'">View Form <i class="fa fa-long-arrow-right"></i></a>';
 						
 					echo '</header>';
 				
 				echo '</article>';
+				
 			}
-		}
-
 	}
-			
+
 }
 	
 //* Run the Genesis loop

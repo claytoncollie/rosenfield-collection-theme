@@ -25,7 +25,7 @@ function rc_theme_setup() {
 	
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
-	define( 'CHILD_THEME_URL', 'https://www.bitbucket.org/claytoncollie/rosenfieldcollection' );
+	define( 'CHILD_THEME_URL', 'http://www.rosenfieldcollection.com' );
 	define( 'CHILD_THEME_VERSION', '1.0.0' );
 	
 	//* Enqueue scripts and styles
@@ -139,7 +139,7 @@ function rc_load_scripts_styles() {
 	
 	wp_enqueue_script( 'search-overlay', get_stylesheet_directory_uri() . '/js/search-overlay.js', array( 'rc-global' ), '1.0.0', true );
 
-	wp_enqueue_style( 'dashicons' );
+	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 
 }
 
@@ -168,12 +168,20 @@ function rc_entry_class( $classes ) {
 		
 	$columns = 4;
 	
-	$column_classes = array( '', '', 'one-half', 'one-third', 'one-fourth', 'one-fifth', 'one-sixth' );
-	$classes[] = $column_classes[$columns];
-	if( 0 == $wp_query->current_post || 0 == $wp_query->current_post % $columns )
-		$classes[] = 'first';
+	if( is_singular('post') || is_page('add-object')  ) {
 		
-	return $classes;
+		$classes[] = '';
+		return $classes;
+		
+	} else {
+	
+		$column_classes = array( '', '', 'one-half', 'one-third', 'one-fourth', 'one-fifth', 'one-sixth' );
+		$classes[] = $column_classes[$columns];
+		if( 0 == $wp_query->current_post || 0 == $wp_query->current_post % $columns )
+			$classes[] = 'first';
+			
+		return $classes;
+	}
 }
 
 // Filter post title to add author name
@@ -203,9 +211,9 @@ function rc_post_title_output( $title ) {
 // Edit read more link
 function rc_read_more() {
 	
-	$permalink = get_permalink( $post_id );
+	$permalink = get_permalink( get_the_ID() );
 	
-	echo '<a class="more-link" href="'. $permalink.'">View Object <span class="dashicons dashicons-arrow-right-alt"></span></a>';
+	echo '<a class="more-link" href="'. $permalink.'">View Object <i class="fa fa-long-arrow-right"></i></a>';
 }
 	
 // Add widget area on home page just after header

@@ -424,8 +424,7 @@ Structure and Layout
 
 .archive .author-box,
 .archive-description,
-.page .content,
-.single .content{
+.page .content {
 	width: 100%;
 }
 
@@ -438,6 +437,15 @@ Structure and Layout
 	flex-wrap: wrap;
 }
 
+.single .content {
+	width: 850px;
+	float: left;
+}
+
+.single .sidebar {
+	width: 280px;
+	float: right;
+}
 /* Column Classes
 	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
 --------------------------------------------- */
@@ -686,6 +694,8 @@ Site Header
 .site-title a:hover {
 	color: #fff;
 	font-weight: 400;
+    font-family: "futura-pt", sans-serif;
+	font-size: 36px;
 }
 
 .header-image .site-title {
