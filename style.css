@@ -221,6 +221,8 @@ blockquote::before {
 }
 
 
+
+
 /* Headings
 --------------------------------------------- */
 
@@ -369,6 +371,15 @@ input[type="search"]::-webkit-search-results-button {
 
 .more-link {
 	font-style: italic;
+}
+
+.artist-attribution {
+	font-weight: 300;
+    font-size: 16px;
+    text-transform: lowercase;
+    font-style: italic;
+   	font-family: "expo-serif-pro", sans-serif;
+	letter-spacing: 0.3px;
 }
 
 /*

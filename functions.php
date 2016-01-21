@@ -95,6 +95,9 @@ function rc_theme_setup() {
 	//* Add grid body class
 	add_filter( 'body_class', 'rc_grid_body_class' );
 	
+	// Add artist name to end of post title
+	add_filter( 'genesis_post_title_text', 'rc_add_author_name' );
+	
 	//Filter Genesis H1 Post Titles to remove hyperlinks on Category pages
 	//add_filter( 'genesis_post_title_output', 'rc_post_title_output', 15 );
 
@@ -205,6 +208,15 @@ function rc_post_title_output( $title ) {
 	$output .= genesis_html5() ? "{$title}</{$wrap}>" : '';
 
 	return $output;
+
+}
+
+// Add artist name to end of post title
+function rc_add_author_name( $title ) {
+
+	$title .= ' <span class="artist-attribution">by</span> ' . get_the_author();
+
+	return $title;
 
 }
 
