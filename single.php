@@ -12,26 +12,20 @@
 add_action( 'genesis_meta', 'rc_object_genesis_meta' );
 function rc_object_genesis_meta() {
 	
-	//* Force full-width-content layout setting
-	remove_filter( 'genesis_site_layout', '__genesis_return_full_width_content' );
-	
-	//* Force content-sidebar layout
-	add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_content_sidebar' );
-	
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_object_scripts' );
 	
 	//* Add the entry meta in the entry header (requires HTML5 theme support)
-	add_action( 'genesis_sidebar', 'genesis_post_info' );
+	add_action( 'genesis_entry_content', 'rc_object_meta' );
 	
 	// Remove read more button from loop content section under header
 	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
 	
-	// Remove default loop
-	//remove_action('genesis_loop','genesis_do_loop');
-	
 	// Add flex sldier loop
-	add_action('genesis_entry_content','rc_gallery_do_loop');
+	add_action('genesis_loop','rc_gallery_do_loop');
+	
+	// Add sideba next to image loop
+	add_action('genesis_loop','rc_sidebar_meta', 11);
 
 }
 
@@ -42,13 +36,19 @@ function rc_load_object_scripts() {
 
 }
 
+// Object meta just below post title
+function rc_object_meta() {
+	$artist_url = get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) );
+	echo '<p><a class="more-link" href="' . $artist_url . '">View all objects by artist <i class="fa fa-long-arrow-right"></i></a></p>';
+}
+
 // Gallery Loop
 function rc_gallery_do_loop() {
 	
 	$images = get_field('images');
 
 	if( $images ) {
-		echo '<div id="slider" class="flexslider">';
+		echo '<div id="slider" class="first three-fourths flexslider">';
 			echo '<ul class="slides">';
 				foreach( $images as $image ): 
 					echo '<li data-thumb="'.$image['sizes']['thumbnail'].'">';
@@ -58,6 +58,89 @@ function rc_gallery_do_loop() {
 			echo '</ul>';
 		echo '</div>';
 	}
+}
+
+// Object meta just below post title
+function rc_sidebar_meta() {
+	$forms 			= get_the_terms(get_the_ID(), 'rc_form');
+	$firings 		= get_the_terms(get_the_ID(), 'rc_firing');
+	$techniques 	= get_the_terms(get_the_ID(), 'rc_technique');	
+	$rows			= get_the_terms(get_the_ID(), 'rc_row');
+	$columns 		= get_the_terms(get_the_ID(), 'rc_column');
+	$length			= get_field('length');
+	$width			= get_field('width');
+	$height			= get_field('height');
+	
+	// load all 'rc_form' terms for the post
+	$terms = get_the_terms( get_the_ID(), 'rc_form');
+	$object_id = get_field('object_id');
+	
+	echo '<div class="one-fourth">';
+	
+		// we will use the first term to load ACF data from
+		if( !empty($terms) ) {
+			
+			$term = array_pop($terms);
+		
+			$prefix = get_field('rc_form_object_prefix', $term );
+		
+			echo '<span class="object-meta">' . $prefix . $object_id . '</span>';
+		}
+	
+		// Loop for taxonomy FORM
+		if( !empty($forms) ) {
+			echo '<div class="meta form">';
+				foreach($forms as $form) {
+					$form_link = get_term_link( $form );
+					echo '<a href="' . esc_url( $form_link ) . '">' . $form->name .'</a>';
+				}
+			echo '</div>';
+		}
+		
+		if( !empty($firings) ) {
+			// Loop for taxonomy FIRING
+			echo '<div class="meta firing">';
+				foreach($firings as $firing) {
+					$firing_link = get_term_link( $firing );
+					echo '<a href="' . esc_url( $firing_link ) . '">' . $firing->name .'</a>';
+				}
+			echo '</div>';
+		}
+		
+		if( !empty($techniques) ) {
+			// Loop for taxonomy TECHNIQUE
+			echo '<div class="meta technique">';
+				foreach($techniques as $technique) {
+					$technique_link = get_term_link( $technique );
+					echo '<a href="' . esc_url( $technique_link ) . '">' . $technique->name .'</a>';
+				}
+			echo '</div>';
+		}
+		
+		// Dimensions
+		echo '<div class="meta dimensions">' . $length . ' x ' . $width . ' x ' . $height .'</div>';
+		
+		if( !empty($rows) ) {
+			// Loop for taxonomy ROW
+			echo '<div class="meta row">';
+				foreach($rows as $row) {
+					$row_link = get_term_link( $row );
+					echo '<a href="' . esc_url( $row_link ) . '">' . $row->name .'</a>';
+				}
+			echo '</div>';
+		}
+		
+		if( !empty($columns) ) {
+			// Loop for taxonomy COLUMN
+			echo '<div class="meta column">';
+				foreach($columns as $column) {
+					$column_link = get_term_link( $column );
+					echo '<a href="' . esc_url( $column_link ) . '">' . $column->name .'</a>';
+				}
+			echo '</div>';
+		}
+		
+	echo '</div>';
 }
 
 // Run genesis loop

@@ -214,7 +214,7 @@ function rc_post_title_output( $title ) {
 // Add artist name to end of post title
 function rc_add_author_name( $title ) {
 
-	$title .= ' <span class="artist-attribution">by</span> ' . get_the_author();
+	$title .= ' <span class="artist-attribution">by</span> <span class="artist-name">' . get_the_author() . '</span>';
 
 	return $title;
 

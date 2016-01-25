@@ -422,14 +422,11 @@ Structure and Layout
 }
 
 .content,
-.page.page-template-page_blog-php .content,
-.page.artist-archive .content{
-	width: 100%;
-}
-
+.page.artist-archive .content,
 .archive .author-box,
 .archive-description,
-.page .content {
+.page .content,
+.single .content .entry {
 	width: 100%;
 }
 
@@ -442,15 +439,7 @@ Structure and Layout
 	flex-wrap: wrap;
 }
 
-.single .content {
-	width: 850px;
-	float: left;
-}
 
-.single .sidebar {
-	width: 280px;
-	float: right;
-}
 /* Column Classes
 	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
 --------------------------------------------- */
@@ -535,7 +524,8 @@ Common Classes
 }
 
 .archive .author-box,
-.archive-description {
+.archive-description,
+.single .content .entry {
 	margin-bottom: 60px;
 	text-align: center;
 }
@@ -936,33 +926,8 @@ Content Area
 	clear:both;
 }
 
-.entry-background {
-	display: block;
-	height: 560px;
-	width: 100%;
-	z-index: -99 !important;
-}
-
-.no-featured-image .entry-background {
-    background: rgba(0, 0, 0, 0.5);
-    height: 180px;
-}
-
 .entry-content {
 	clear: both;
-}
-
-p.intro {
-	font-size: 24px;
-}
-
-p.intro:after {
-	border-bottom: 1px solid #333;
-	content: "";
-	display: block;
-	margin-bottom: 40px;
-	padding-bottom: 30px;
-	width: 25%;
 }
 
 .entry-content ol,
@@ -1007,21 +972,11 @@ p.entry-meta {
 }
 
 .entry-header {
-	text-align: left;
+	text-align: center;
 	margin-bottom: 5px;
 }
 
-.rc-grid .entry-header,
-.artist-archive .entry-header {
-	text-align: center;
-}
-
-
 .entry-header .entry-meta {
-	margin-bottom: 60px;
-}
-
-.rc-grid .entry-header .entry-meta {
 	margin-bottom: 0;
 }
 
