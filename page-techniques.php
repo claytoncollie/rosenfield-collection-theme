@@ -72,7 +72,7 @@ function rc_taxonomy_list( $atts ) {
 				$img = '';
 				$get_posts_args[$args['taxonomy']] = $cat->slug;
 				if ( $posts = get_posts( $get_posts_args ) ) {
-					$img = get_the_post_thumbnail( $posts[0]->ID );
+					$img = get_the_post_thumbnail( $posts[0]->ID, 'medium'  );
 				}
 				
 				echo '<article class="entry one-fourth '.$args["taxonomy"].'">';
