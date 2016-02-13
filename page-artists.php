@@ -29,7 +29,10 @@ function rc_archive_artists_genesis_meta() {
 	add_action( 'genesis_after_header', 'genesis_do_loop' );
 	
 	// Remove read more button from loop content section under header
-	remove_action( 'genesis_entry_header' , 'rc_read_more', 12 );
+	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
+	
+	// Remove filter that adds artist name to end of post title
+	remove_filter( 'genesis_post_title_text', 'rc_add_author_name' );
 	
 	// Add new custom loop
 	add_action( 'genesis_loop', 'rc_list_authors_loop' );
@@ -49,6 +52,7 @@ function rc_list_authors_loop() {
 	
 	$args = array( 
 		'order'          => 'ASC',
+		'orderby' 		 => 'display_name',
 		'exclude'		 => array (15, 2)
 	 );
 		
@@ -88,7 +92,7 @@ function rc_list_authors_loop() {
 					
 				<h2 class="entry-title" itemprop="headline"><a href="<?php echo $author_link; ?>"><?php echo $author_first_name; ?> <?php echo $author_last_name; ?></a></h2>
 				
-				<a class="more-link" href="<?php echo $author_link; ?>">View Artist <span class="dashicons dashicons-arrow-right-alt"></span></a>
+				<a class="more-link" href="<?php echo $author_link; ?>">View Artist <i class="fa fa-long-arrow-right"></i></a>
 					
 			</header>
 				

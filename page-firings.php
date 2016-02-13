@@ -22,6 +22,9 @@ function rc_page_firings_genesis_meta() {
 	// Remove read more button from loop content section under header
 	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
 	
+	// Remove filter that adds artist name to end of post title
+	remove_filter( 'genesis_post_title_text', 'rc_add_author_name' );
+	
 	// Add custom loop to show at sub categories of FORM
 	add_action( 'genesis_loop', 'rc_taxonomy_list' );
 				

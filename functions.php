@@ -97,9 +97,7 @@ function rc_theme_setup() {
 	
 	// Add artist name to end of post title
 	add_filter( 'genesis_post_title_text', 'rc_add_author_name' );
-	
-	//Filter Genesis H1 Post Titles to remove hyperlinks on Category pages
-	//add_filter( 'genesis_post_title_output', 'rc_post_title_output', 15 );
+
 
 	// Register widget areas
 	//-----------------------------------------------------------------------------------------------------
@@ -187,34 +185,14 @@ function rc_entry_class( $classes ) {
 	}
 }
 
-// Filter post title to add author name
-function rc_post_title_output( $title ) {
-	
-	$title = apply_filters( 'genesis_post_title_text', get_the_title() );
-
-	$wrap = 'h2';
-
-	//* Also, if HTML5 with semantic headings, wrap in H1
-	$wrap = genesis_html5() && genesis_get_seo_option( 'semantic_headings' ) ? 'h2' : $wrap;
-
-	//* Build the output
-	$output = genesis_markup( array(
-		'html5'   => "<{$wrap} %s>",
-		'xhtml'   => sprintf( '<%s class="entry-title">%s</%s>', $wrap, $title, $wrap ),
-		'context' => 'entry-title',
-		'echo'    => false,
-	) );
-
-	$output .= genesis_html5() ? "{$title}</{$wrap}>" : '';
-
-	return $output;
-
-}
 
 // Add artist name to end of post title
 function rc_add_author_name( $title ) {
-
-	$title .= ' <span class="artist-attribution">by</span> <span class="artist-name">' . get_the_author() . '</span>';
+	
+	$first_name = get_the_author_meta( 'first_name' );
+	$last_name = get_the_author_meta( 'last_name' );
+	
+	$title .= ' <span class="artist-attribution">by</span> <span class="artist-name">' . $first_name . ' ' . $last_name . '</span>';
 
 	return $title;
 
@@ -255,5 +233,5 @@ function rc_footer_creds_filter( $creds ) {
 	$site_title = get_bloginfo('name');
 	$login = do_shortcode( '[footer_loginout]' );
 	
-	return '<div class="credits">'.$creds.'<span style="margin: 0 10px;">|</span>'.$site_title.'<span style="margin: 0 10px;">|</span>'.$login.'</div>';
+	return '<div class="credits"><span class="copyright">'.$creds.'</span><span class="credits-title">'.$site_title.'</span><span class="login-link">'.$login.'</span></div>';
 }
