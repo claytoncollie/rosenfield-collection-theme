@@ -12,9 +12,29 @@
 add_action( 'genesis_meta', 'rc_page_add_object_genesis_meta' );
 function rc_page_add_object_genesis_meta() {
 	
+	//* Add custom body class
+	add_filter( 'body_class', 'rc_add_object_body_class' );
+	
 	//* Add entry content
 	add_action( 'genesis_entry_content', 'genesis_do_post_content' );
 	
+	// Remove filter that adds artist name to end of post title
+	remove_filter( 'genesis_post_title_text', 'rc_add_author_name' );
+	
+	// Remove read more button from loop content section under header
+	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
+	
+	//* Remove the footer widget
+	remove_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
+	
+}
+
+// Add custom body class
+function rc_add_object_body_class( $classes ) {
+	
+	$classes[] = 'add-object';
+	return $classes;
+
 }
 	
 //* Run the Genesis loop

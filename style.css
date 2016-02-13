@@ -362,6 +362,7 @@ input:hover[type="submit"],
 
 .entry-content .button:hover {
 	color: #fff;
+	background-color: #000;
 }
 
 .button {
@@ -1312,6 +1313,46 @@ Site Footer
 .site-footer .credits-title::after {
 	content: "|";
 	margin: 0 5px;
+}
+
+/* Add Object
+-----------------------------------------------------------------------------------------------*/
+.add-object .entry {
+	width: 100%;
+}
+
+.add-object .entry input, select, textarea {
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #ddd;
+}
+
+.add-object .gform_wrapper ul li.gfield,
+.gform_wrapper textarea {
+	margin-bottom: 40px !important;
+}
+
+.gform_wrapper .gf_step span.gf_step_number {
+	background-color: #aaa;
+    color: #333;
+    padding: 10px 17px;
+    border-radius: 50%;
+    font-size: 12px !important;
+    margin-right: 10px;
+    position: relative;
+    top: -8px;
+	border: 1px solid #555;
+}
+.gform_wrapper .gf_step_active span.gf_step_number {
+	background-color: #000;
+    color: #fff;
+    padding: 10px 17px;
+    border-radius: 50%;
+    font-size: 12px !important;
+    margin-right: 10px;
+    position: relative;
+    top: -8px;
+	border: 0;
 }
 
 /*
