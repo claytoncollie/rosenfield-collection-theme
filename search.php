@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page - Search
+ * Page - Search
  *
  * @package      Rosenfield Collection Theme
  * @since        1.0.0

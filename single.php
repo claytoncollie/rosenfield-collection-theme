@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page - Object
+ * Page - Single Post
  *
  * @package      Rosenfield Collection Theme
  * @since        1.0.0

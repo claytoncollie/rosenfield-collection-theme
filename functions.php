@@ -147,7 +147,7 @@ function rc_load_scripts_styles() {
 // add rc-grid body class to get styles, do no load on single post page
 function rc_grid_body_class( $classes ) {
 
-	if( is_singular('post') || is_page('add-object')  ) {
+	if( is_singular('post') || is_page('add-object') || is_404()  ) {
 		
 		$classes[] = '';
 		return $classes;
@@ -169,7 +169,7 @@ function rc_entry_class( $classes ) {
 		
 	$columns = 4;
 	
-	if( is_singular('post') || is_page('add-object')  ) {
+	if( is_singular('post') || is_page('add-object') || is_404()  ) {
 		
 		$classes[] = '';
 		return $classes;

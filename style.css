@@ -1329,18 +1329,20 @@ Site Footer
 	width: 100%;
 }
 
-.add-object .entry input, select, textarea {
+.add-object input,
+.add-object select,
+.add-object textarea {
 	background-color: #fff;
 	color: #000;
 	border: 1px solid #ddd;
 }
 
 .add-object .gform_wrapper ul li.gfield,
-.gform_wrapper textarea {
+.add-object .gform_wrapper textarea {
 	margin-bottom: 40px !important;
 }
 
-.gform_wrapper .gf_step span.gf_step_number {
+.add-object .gform_wrapper .gf_step span.gf_step_number {
 	background-color: #aaa;
     color: #333;
     padding: 10px 17px;
@@ -1351,7 +1353,7 @@ Site Footer
     top: -8px;
 	border: 1px solid #555;
 }
-.gform_wrapper .gf_step_active span.gf_step_number {
+.add-object .gform_wrapper .gf_step_active span.gf_step_number {
 	background-color: #000;
     color: #fff;
     padding: 10px 17px;
