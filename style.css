@@ -240,7 +240,7 @@ h6 {
 	color: #333;
 	font-weight: 700;
 	line-height: 1.2;
-	margin: 0 0 5px;
+	margin: 0 0 10px;
 }
 
 h1 {
@@ -1152,6 +1152,13 @@ p.entry-meta {
     margin-bottom: 10px;
 }
 
+.sidebar .meta .object-meta,
+.sidebar .meta .object-id,
+.sidebar .meta .object-dimensions {
+	display: block;
+	margin-left: 10px;
+}
+
 .sidebar .object-meta-heading {
     text-transform: uppercase;
     font-family: 'futura-pt', sans-serif;
@@ -1160,6 +1167,7 @@ p.entry-meta {
     margin-right: 10px;
     font-size: 13px;
 	margin-left: 10px;
+	display: block;
 }
 
 .sidebar .meta a:hover {

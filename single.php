@@ -87,7 +87,7 @@ function rc_sidebar_meta() {
 			
 			echo '<div class="meta id">';
 				echo '<span class="object-meta-heading">ID</span>';
-				echo $prefix . $object_id;
+				echo '<span class="object-id">'.$prefix . $object_id.'</span>';
 			echo '</div>';
 		}
 	
@@ -97,7 +97,7 @@ function rc_sidebar_meta() {
 				echo '<span class="object-meta-heading">Form</span>';
 				foreach($forms as $form) {
 					$form_link = get_term_link( $form );
-					echo '<a href="' . esc_url( $form_link ) . '">' . $form->name .'</a>';
+					echo '<span class="object-meta"><a href="' . esc_url( $form_link ) . '">' . $form->name .'</a></span>';
 				}
 			echo '</div>';
 		}
@@ -108,7 +108,7 @@ function rc_sidebar_meta() {
 				echo '<span class="object-meta-heading">Firing</span>';
 				foreach($firings as $firing) {
 					$firing_link = get_term_link( $firing );
-					echo '<a href="' . esc_url( $firing_link ) . '">' . $firing->name .'</a>';
+					echo '<span class="object-meta"><a href="' . esc_url( $firing_link ) . '">' . $firing->name .'</a></span>';
 				}
 			echo '</div>';
 		}
@@ -119,7 +119,7 @@ function rc_sidebar_meta() {
 				echo '<span class="object-meta-heading">Technique</span>';
 				foreach($techniques as $technique) {
 					$technique_link = get_term_link( $technique );
-					echo '<a href="' . esc_url( $technique_link ) . '">' . $technique->name .'</a>';
+					echo '<span class="object-meta"><a href="' . esc_url( $technique_link ) . '">' . $technique->name .'</a></span>';
 				}
 			echo '</div>';
 		}
@@ -127,7 +127,7 @@ function rc_sidebar_meta() {
 		// Dimensions
 		echo '<div class="meta dimensions">';
 			echo '<span class="object-meta-heading">Dimensions</span>';
-		 	echo $length . 'x' . $width . 'x' . $height .' inches';
+		 	echo '<span class="object-dimensions">'.$length . 'x' . $width . 'x' . $height .' inches</span>';
 		echo '</div>';
 		
 		if( !empty($rows) ) {
@@ -136,7 +136,7 @@ function rc_sidebar_meta() {
 			echo '<span class="object-meta-heading">Row</span>';
 				foreach($rows as $row) {
 					$row_link = get_term_link( $row );
-					echo '<a href="' . esc_url( $row_link ) . '">' . $row->name .'</a>';
+					echo '<span class="object-meta"><a href="' . esc_url( $row_link ) . '">' . $row->name .'</a></span>';
 				}
 			echo '</div>';
 		}
@@ -147,7 +147,7 @@ function rc_sidebar_meta() {
 			echo '<span class="object-meta-heading">Column</span>';
 				foreach($columns as $column) {
 					$column_link = get_term_link( $column );
-					echo '<a href="' . esc_url( $column_link ) . '">' . $column->name .'</a>';
+					echo '<span class="object-meta"><a href="' . esc_url( $column_link ) . '">' . $column->name .'</a></span>';
 				}
 			echo '</div>';
 		}
