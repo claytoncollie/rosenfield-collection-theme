@@ -177,9 +177,6 @@ a {
 
 a:hover {
 	color: #000;
-}
-
-.author-website a:hover {
 	border-bottom: 1px dotted #000;
 }
 
@@ -240,7 +237,7 @@ h6 {
 	color: #333;
 	font-weight: 700;
 	line-height: 1.2;
-	margin: 0 0 10px;
+	margin: 0 0 5px;
 }
 
 h1 {
@@ -291,6 +288,10 @@ img.post-image.entry-image {
 
 img.user-thumbnail {
 	max-height: 100px;
+}
+
+.add-object img {
+	width: none;
 }
 
 
@@ -430,7 +431,7 @@ Structure and Layout
 }
 
 .site-inner .wrap {
-	padding: 20px 0;
+	padding: 20px 0 80px 0;
 	width: 1140px;
 }
 
@@ -710,7 +711,8 @@ Site Header
 	width: auto;
 }
 
-.title-area p {
+.title-area p,
+.title-area h1 {
 	margin: 0;
 }
 
@@ -949,7 +951,7 @@ Content Area
 .rc-grid .entry img,
 .artist-archive .entry img {
 	box-shadow: 3px 3px rgba(0,0,0,.1);
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	border: 1px solid #ccc;
 }
 
