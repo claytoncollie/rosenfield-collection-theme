@@ -82,7 +82,7 @@ function rc_list_authors_loop() {
 		<article class="entry one-eighth">
 		
 			<?php if( get_field( 'artist_photo', 'user_'.$id )) : ?>
-				<a href="<?php echo $author_link; ?>" class="post-image entry-image" itemprop="image"><img src="<?php echo $author_avatar[0]; ?>" alt="<?php echo $author_first_name; ?> <?php echo $author_last_name; ?>" /></a>
+				<a href="<?php echo $author_link; ?>" class="post-image entry-image" itemprop="image"><img src="<?php echo $author_avatar[0]; ?>" alt="<?php echo $author_first_name; ?> <?php echo $author_last_name; ?>" title="<?php echo $author_first_name; ?> <?php echo $author_last_name; ?>" /></a>
 			<?php else : ?>
             	<a href="<?php echo $author_link; ?>" class="post-image entry-image" itemprop="image"><?php echo $fallback_image; ?></a>
             

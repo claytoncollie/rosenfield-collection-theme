@@ -38,8 +38,7 @@ function rc_load_object_scripts() {
 
 // Object meta just below post title
 function rc_object_meta() {
-	$artist_url = get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) );
-	echo '<p><a class="more-link" href="' . $artist_url . '">View all objects by this artist <i class="fa fa-long-arrow-right"></i></a></p>';
+	echo '<p><a class="more-link" rel="author" href="' . get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) . '">View all objects by this artist <i class="fa fa-long-arrow-right"></i></a></p>';
 }
 
 // Gallery Loop
@@ -52,7 +51,7 @@ function rc_gallery_do_loop() {
 			echo '<ul class="slides">';
 				foreach( $images as $image ): 
 					echo '<li data-thumb="'.$image['sizes']['thumbnail'].'">';
-						echo '<img src="'.$image['sizes']['large'].'" alt="'.$image['alt'].'" />';
+						echo '<img src="'.$image['sizes']['large'].'" alt="'.$image['alt'].'" title="'.$image['alt'].'" />';
 						echo '<a href="'.$image['url'].'" class="button attachment"><i class="fa fa-cloud-download"></i> High Resolution</a>';
 					echo '</li>';
 				endforeach;
@@ -63,11 +62,11 @@ function rc_gallery_do_loop() {
 
 // Object meta just below post title
 function rc_sidebar_meta() {
-	$forms 			= get_the_terms(get_the_ID(), 'rc_form');
-	$firings 		= get_the_terms(get_the_ID(), 'rc_firing');
-	$techniques 	= get_the_terms(get_the_ID(), 'rc_technique');	
-	$rows			= get_the_terms(get_the_ID(), 'rc_row');
-	$columns 		= get_the_terms(get_the_ID(), 'rc_column');
+	$forms 			= get_the_term_list(get_the_ID(), 'rc_form', '', ', ');
+	$firings 		= get_the_term_list(get_the_ID(), 'rc_firing', '', ', ');
+	$techniques 	= get_the_term_list(get_the_ID(), 'rc_technique', '', ', ');	
+	$rows			= get_the_term_list(get_the_ID(), 'rc_row', '', ', ');
+	$columns 		= get_the_term_list(get_the_ID(), 'rc_column', '', ', ');
 	$length			= get_field('length');
 	$width			= get_field('width');
 	$height			= get_field('height');
@@ -95,10 +94,7 @@ function rc_sidebar_meta() {
 		if( !empty($forms) ) {
 			echo '<div class="meta form">';
 				echo '<span class="object-meta-heading">Form</span>';
-				foreach($forms as $form) {
-					$form_link = get_term_link( $form );
-					echo '<span class="object-meta"><a href="' . esc_url( $form_link ) . '">' . $form->name .'</a></span>';
-				}
+				echo $forms;
 			echo '</div>';
 		}
 		
@@ -106,10 +102,7 @@ function rc_sidebar_meta() {
 			// Loop for taxonomy FIRING
 			echo '<div class="meta firing">';
 				echo '<span class="object-meta-heading">Firing</span>';
-				foreach($firings as $firing) {
-					$firing_link = get_term_link( $firing );
-					echo '<span class="object-meta"><a href="' . esc_url( $firing_link ) . '">' . $firing->name .'</a></span>';
-				}
+				echo $firings;
 			echo '</div>';
 		}
 		
@@ -117,38 +110,31 @@ function rc_sidebar_meta() {
 			// Loop for taxonomy TECHNIQUE
 			echo '<div class="meta technique">';
 				echo '<span class="object-meta-heading">Technique</span>';
-				foreach($techniques as $technique) {
-					$technique_link = get_term_link( $technique );
-					echo '<span class="object-meta"><a href="' . esc_url( $technique_link ) . '">' . $technique->name .'</a></span>';
-				}
+				echo $techniques;
 			echo '</div>';
 		}
 		
 		// Dimensions
-		echo '<div class="meta dimensions">';
-			echo '<span class="object-meta-heading">Dimensions</span>';
-		 	echo '<span class="object-dimensions">'.$length . 'x' . $width . 'x' . $height .' inches</span>';
-		echo '</div>';
+		if($length || $width || $height) {
+			echo '<div class="meta dimensions">';
+				echo '<span class="object-meta-heading">Dimensions</span>';
+			 	echo '<span class="object-dimensions">'.$length . 'x' . $width . 'x' . $height .' inches</span>';
+			echo '</div>';
+		}
 		
 		if( !empty($rows) ) {
 			// Loop for taxonomy ROW
 			echo '<div class="meta row">';
-			echo '<span class="object-meta-heading">Row</span>';
-				foreach($rows as $row) {
-					$row_link = get_term_link( $row );
-					echo '<span class="object-meta"><a href="' . esc_url( $row_link ) . '">' . $row->name .'</a></span>';
-				}
+				echo '<span class="object-meta-heading">Row</span>';
+				echo $rows;
 			echo '</div>';
 		}
 		
 		if( !empty($columns) ) {
 			// Loop for taxonomy COLUMN
 			echo '<div class="meta column">';
-			echo '<span class="object-meta-heading">Column</span>';
-				foreach($columns as $column) {
-					$column_link = get_term_link( $column );
-					echo '<span class="object-meta"><a href="' . esc_url( $column_link ) . '">' . $column->name .'</a></span>';
-				}
+				echo '<span class="object-meta-heading">Column</span>';
+				echo $columns;
 			echo '</div>';
 		}
 		

@@ -45,7 +45,7 @@ function rc_author_info() {
 	echo '<div class="author-info"><div class="wrap">';
 		
 		if($avatar) {
-			echo '<img src="'.$avatar[0].'" alt="'.$first_name.' '.$last_name.'" />';
+			echo '<img src="'.$avatar[0].'" alt="'.$first_name.' '.$last_name.'" title="'.$first_name.' '.$last_name.'"/>';
 		}
 		
 		echo '<h1 class="entry-title">' . $first_name .' '. $last_name . '</h1>';

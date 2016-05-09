@@ -131,10 +131,20 @@ Defaults
 /* Typographical Elements
 --------------------------------------------- */
 
+html {
+    font-size: 62.5%; /* 10px browser default */
+}
+
+/* Chrome fix */
+body > div {
+    font-size: 1.6rem;
+}
+
 body {
 	background-color: #f1f1f1;
 	color: #333;
 	font-family: "expo-serif-pro", sans-serif;
+	font-size: 1.6rem;
 	font-size: 16px;
 	font-weight: 400;
 	letter-spacing: 0.3px;
@@ -177,7 +187,6 @@ a {
 
 a:hover {
 	color: #000;
-	border-bottom: 1px dotted #000;
 }
 
 p {
@@ -214,6 +223,7 @@ blockquote {
 blockquote::before {
 	content: "\201C";
 	display: block;
+	font-size: 3.0rem;
 	font-size: 30px;
 	height: 0;
 	left: -24px;
@@ -241,26 +251,32 @@ h6 {
 }
 
 h1 {
+	font-size: 3.0rem;
 	font-size: 30px;
 }
 
 h2 {
+	font-size: 2.6rem;
 	font-size: 26px;
 }
 
 h3 {
+	font-size: 2.0rem;
 	font-size: 20px;
 }
 
 h4 {
+	font-size: 1.6rem;
 	font-size: 16px;
 }
 
 h5 {
+	font-size: 1.4rem;
 	font-size: 14px;
 }
 
 h6 {
+	font-size: 1.2rem;
 	font-size: 12px;
 }
 
@@ -290,8 +306,10 @@ img.user-thumbnail {
 	max-height: 100px;
 }
 
-.add-object img {
-	width: none;
+.add-onbject img,
+.add-object img.gform_ajax_spinner,
+.add-object img.gform_delete {
+	width: 15px;
 }
 
 
@@ -305,6 +323,7 @@ textarea {
 	border: 1px solid #fff;
 	color: #fff;
 	font-family: "futura-pt", sans-serif;
+	font-size: 1.6rem;
 	font-size: 16px;
 	font-weight: 400 ;
 	padding: 10px ;
@@ -344,6 +363,7 @@ input[type="submit"],
 	color: #000;
 	cursor: pointer;
 	font-family: "futura-pt", sans-serif;
+	font-size: 1.6rem;
 	font-size: 16px;
 	font-weight: 400;
 	letter-spacing: 1px;
@@ -374,15 +394,16 @@ input:hover[type="submit"],
 	position: absolute;
     right: 1px;
     bottom: 1px;
-    background-color: #333;
+    background-color: rgba(0,0,0,.5);
     color: #fff;
     border: 0;
     padding: 5px 15px;
+    font-size: 1.2rem;
 	font-size: 12px;
 }
 
 .button.attachment:hover {
-	background-color: #000;
+	background-color: rgba(0,0,0,1);
 }
 
 input[type="search"]::-webkit-search-cancel-button,
@@ -400,6 +421,7 @@ input[type="search"]::-webkit-search-results-button {
 
 .artist-attribution {
 	font-weight: 300;
+	font-size: 1.6rem;
     font-size: 16px;
     text-transform: lowercase;
     font-style: italic;
@@ -557,6 +579,7 @@ Common Classes
 
 .archive-title,
 .author-box-title {
+	font-size: 2.4rem;
 	font-size: 24px;
 	margin-bottom: 10px;
 }
@@ -721,6 +744,7 @@ Site Header
 	color: #fff;
 	font-weight: 400;
     font-family: "futura-pt", sans-serif;
+    font-size: 3.6rem;
 	font-size: 36px;
 }
 
@@ -739,6 +763,7 @@ Site Header
 .site-description {
 	display: block;
 	margin-bottom: 0;
+	font-size: 1.4rem;
 	font-size: 14px;
     font-weight: 400;
     color: #999;
@@ -759,6 +784,7 @@ Site Header
 
 .genesis-nav-menu {
 	clear: both;
+	font-size: 1.6rem;
 	font-size: 16px;
 	line-height: 1;
 	width: 100%;
@@ -801,6 +827,7 @@ Site Header
 	background-color: #fff;
 	border: 1px solid #eee;
 	border-top: 0;
+	font-size: 1.4rem;
 	font-size: 14px;
 	padding: 20px;
 	position: relative;
@@ -889,6 +916,7 @@ Site Header
 
 .nav-primary .genesis-nav-menu a {
 	color: #fff;
+	font-size: 1.6rem;
 	font-size: 16px;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -911,6 +939,7 @@ Site Header
 
 .nav-primary .genesis-nav-menu .sub-menu a {
 	color: #333;
+	font-size: 1.6rem;
 	font-size: 16px;
 }
 
@@ -1002,6 +1031,7 @@ Content Area
 --------------------------------------------- */
 
 p.entry-meta {
+	font-size: 1.6rem;
 	font-size: 16px;
 	margin-bottom: 0;
 }
@@ -1038,6 +1068,7 @@ p.entry-meta {
 .rc-grid .entry-meta,
 .rc-grid .entry-meta a {
 	color: #fff;
+	font-size: 1.8rem;
 	font-size: 18px;
 }
 
@@ -1074,6 +1105,7 @@ p.entry-meta {
 .pagination {
 	clear: both;
 	font-family: "futura-pt", sans-serif;
+	font-size: 1.6rem;
 	font-size: 16px;
 	font-weight: 400;
 	margin: 30px;
@@ -1091,6 +1123,7 @@ p.entry-meta {
 
 .single .pagination-next,
 .single .pagination-previous {
+	font-size: 2.0rem;
 	font-size: 20px;
 	font-weight: 900;
 	padding: 60px 0;
@@ -1157,7 +1190,7 @@ p.entry-meta {
 .sidebar .meta .object-meta,
 .sidebar .meta .object-id,
 .sidebar .meta .object-dimensions {
-	display: block;
+	display: inline-block;
 	margin-left: 10px;
 }
 
@@ -1167,9 +1200,10 @@ p.entry-meta {
     font-weight: 700;
     letter-spacing: 1px;
     margin-right: 10px;
+    font-size: 1.3rem;
     font-size: 13px;
-	margin-left: 10px;
-	display: block;
+	margin-left: 0;
+	display: inline-block;
 }
 
 .sidebar .meta a:hover {
@@ -1182,6 +1216,7 @@ Footer Widgets
 .footer-widgets {
 	background-color: #000;
 	font-family: "futura-pt", sans-serif;
+	font-size: 1.6rem;
 	font-size: 16px;
 	color: #fff;
 	text-align: center;
@@ -1209,6 +1244,7 @@ Footer Widgets
 	font-family: "expo-serif-pro", sans-serif;
 	font-style: italic;
 	color: #fff;
+	font-size: 1.8rem;
 	font-size: 18px;
 	font-weight: 400;
 	padding: 20px 0;
@@ -1306,7 +1342,8 @@ Site Footer
 	background-color: #000;
 	padding: 20px 0;
 	text-align: center;
-	font-family: "futura-pt", san-serif;
+	font-family: 'futura-pt', sans-serif;
+	font-size: 1.4rem;
 	font-size: 14px;
 }
 
@@ -1349,6 +1386,7 @@ Site Footer
     color: #333;
     padding: 10px 17px;
     border-radius: 50%;
+    font-size: 1.2rem !important;
     font-size: 12px !important;
     margin-right: 10px;
     position: relative;
@@ -1360,6 +1398,7 @@ Site Footer
     color: #fff;
     padding: 10px 17px;
     border-radius: 50%;
+    font-size: 1.2em !important;
     font-size: 12px !important;
     margin-right: 10px;
     position: relative;
@@ -1384,12 +1423,14 @@ Home Featured Widget
 .home-featured .widget-title,
 .search-featured .entry-title {
 	font-family: "futura-pt", sans-serif;
+	font-size: 4.0rem;
 	font-size: 40px;
 }
 
 .home-featured p,
 .search-featured p {
 	font-style: italic;
+	font-size: 2.0rem;
 	font-size: 20px;
 	color: #555;
 }
@@ -1424,6 +1465,7 @@ Single Artist Archive
 .taxonomy-content h1,
 .rc-title-description .page.entry h1 {
 	font-family: "futura-pt", sans-serif;
+	font-size: 4.0rem;
 	font-size: 40px;
 	color: #000;
 	margin-bottom: 20px;
@@ -1433,6 +1475,7 @@ Single Artist Archive
 .taxonomy-content p,
 .rc-title-description .page.entry .entry-content p {
 	font-style: italic;
+	font-size: 2.0rem;
 	font-size: 20px;
 	color: #555;
 }
@@ -1445,6 +1488,7 @@ Single Artist Archive
 }
 
 .author-info .user-meta .fa {
+	font-size: 5.0rem;
     font-size: 50px;
     height: 50px;
     width: 50px;
@@ -1631,6 +1675,7 @@ body .overlay .overlay-close {
 @media screen and (max-height: 30.5em) {
 	.overlay nav {
 		height: 70%;
+		font-size: 3.4rem;
 		font-size: 34px;
 	}
 	.overlay ul li {
@@ -1724,13 +1769,16 @@ html[xmlns] .flexslider .slides {
   -o-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2);
   box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2);
 }
+
 .flexslider .slides {
   zoom: 1;
 }
+
 .flexslider .slides img {
   height: auto;
   -moz-user-select: none;
 }
+
 .flex-viewport {
   max-height: 2000px;
   -webkit-transition: all 1s ease;
@@ -1739,15 +1787,19 @@ html[xmlns] .flexslider .slides {
   -o-transition: all 1s ease;
   transition: all 1s ease;
 }
+
 .loading .flex-viewport {
   max-height: 300px;
 }
+
 .carousel li {
   margin-right: 5px;
 }
+
 .flex-direction-nav {
   *height: 0;
 }
+
 .flex-direction-nav a {
   text-decoration: none;
   display: block;
@@ -1768,44 +1820,59 @@ html[xmlns] .flexslider .slides {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+
+.flex-direction-nav a:hover {
+	border-bottom: 0;
+}
+
 .flex-direction-nav a:before {
   font-family: "flexslider-icon";
+  font-size: 2.5rem;
   font-size: 25px;
   display: inline-block;
   content: '\f001';
   color: rgba(0, 0, 0, 0.8);
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
+
 .flex-direction-nav a.flex-next:before {
   content: '\f002';
 }
+
 .flex-direction-nav .flex-prev {
   left: -50px;
 }
+
 .flex-direction-nav .flex-next {
   right: -50px;
   text-align: right;
 }
+
 .flexslider:hover .flex-direction-nav .flex-prev {
   opacity: 0.7;
   left: 10px;
 }
+
 .flexslider:hover .flex-direction-nav .flex-prev:hover {
   opacity: 1;
 }
+
 .flexslider:hover .flex-direction-nav .flex-next {
   opacity: 0.7;
   right: 10px;
 }
+
 .flexslider:hover .flex-direction-nav .flex-next:hover {
   opacity: 1;
 }
+
 .flex-direction-nav .flex-disabled {
   opacity: 0!important;
   filter: alpha(opacity=0);
   cursor: default;
   z-index: -1;
 }
+
 .flex-pauseplay a {
   display: block;
   width: 20px;
@@ -1819,30 +1886,37 @@ html[xmlns] .flexslider .slides {
   cursor: pointer;
   color: #000;
 }
+
 .flex-pauseplay a:before {
   font-family: "flexslider-icon";
+  font-size: 2.0rem;
   font-size: 20px;
   display: inline-block;
   content: '\f004';
 }
+
 .flex-pauseplay a:hover {
   opacity: 1;
 }
+
 .flex-pauseplay a.flex-play:before {
   content: '\f003';
 }
+
 .flex-control-nav {
   width: 100%;
   position: absolute;
   bottom: -40px;
   text-align: center;
 }
+
 .flex-control-nav li {
   margin: 0 6px;
   display: inline-block;
   zoom: 1;
   *display: inline;
 }
+
 .flex-control-paging li a {
   width: 11px;
   height: 11px;
@@ -1859,20 +1933,24 @@ html[xmlns] .flexslider .slides {
   -moz-border-radius: 20px;
   border-radius: 20px;
 }
+
 .flex-control-paging li a:hover {
   background: #333;
   background: rgba(0, 0, 0, 0.7);
 }
+
 .flex-control-paging li a.flex-active {
   background: #000;
   background: rgba(0, 0, 0, 0.9);
   cursor: default;
 }
+
 .flex-control-thumbs {
   margin: 2% 0 0;
   position: static;
   overflow: hidden;
 }
+
 .flex-control-thumbs li {
   float: left;
   margin: 0 0 2% 2%;
@@ -2044,6 +2122,7 @@ Media Queries
 	}
 	
 	.nav-primary .genesis-nav-menu a {
+		font-size: 1.4rem;
 		font-size: 14px;
 	}
 	
@@ -2187,10 +2266,12 @@ Media Queries
 	.site-title,
 	.site-title a, 
 	.site-title a:hover {
+		font-size: 2.4rem;
 		font-size: 24px;
 	}
 	
 	.site-description {
+		font-size: 1.0rem;
 		font-size: 10px;
 	}
 
@@ -2226,6 +2307,7 @@ Media Queries
 	}
 
 	.widget-title {
+		font-size: 3.6rem;
 		font-size: 36px;
 	}
 
@@ -2353,7 +2435,8 @@ Media Queries
 	}
 	
 	a.search-icon {
-		font-size: 16px;
+		font-size: 1.5rem;
+		font-size: 15px;
 		padding: 20px 16px;
 	}
 
@@ -2423,6 +2506,7 @@ Media Queries
 	.taxonomy-content h1, 
 	.rc-title-description .page.entry h1,
 	.home-featured .widget-title {
+		font-size: 2.4rem;
 		font-size: 24px;
 	}
 	
@@ -2430,7 +2514,8 @@ Media Queries
 	.taxonomy-content p, 
 	.rc-title-description .page.entry .entry-content p,
 	.home-featured p {
-		font-size: 16px;
+		font-size: 1.5rem;
+		font-size: 15px;
 	}
 
 	.pagination {
