@@ -17,7 +17,9 @@ function rc_page_firings_genesis_meta() {
 
 	// Remove default loop, add under header to show title and content if present
 	remove_action( 'genesis_loop', 'genesis_do_loop' );
-	add_action( 'genesis_after_header', 'genesis_do_loop' );
+	
+	// Add page title above posts
+	add_action('genesis_after_header','genesis_do_post_title');
 	
 	// Remove read more button from loop content section under header
 	remove_action( 'genesis_entry_content' , 'rc_read_more', 12 );
@@ -42,21 +44,21 @@ function rc_page_firings_body_class( $classes ) {
 function rc_taxonomy_list( $atts ) {
 	
 	$args = array(
-		'taxonomy' => 'rc_firing',
-		'post_type' => 'post',
-		'title_li' => '',
-		'depth' => 1,
-		'hide_empty' => 1,
-		'images' => 1,
+		'taxonomy' 				=> 'rc_firing',
+		'post_type' 			=> 'post',
+		'title_li' 				=> '',
+		'depth' 				=> 1,
+		'hide_empty' 			=> 1,
+		'images' 				=> 1,
 	);
 	
 	$get_posts_args = array(
-		'post_type' => $args['post_type'],
-		'number posts' => 1,
-		'meta_query' => array(
+		'post_type' 		=> $args['post_type'],
+		'number posts' 		=> 1,
+		'meta_query' 		=> array(
 			array(
-				'key' => '_thumbnail_id',
-				'compare' => 'EXISTS',
+				'key' 		=> '_thumbnail_id',
+				'compare' 	=> 'EXISTS',
 			),
 		),
 	);
@@ -77,7 +79,7 @@ function rc_taxonomy_list( $atts ) {
 				$get_posts_args[$args['taxonomy']] = $cat->slug;
 				
 				if ( $posts = get_posts( $get_posts_args ) ) {
-					$img = get_the_post_thumbnail( $posts[0]->ID, 'medium'  );
+					$img = get_the_post_thumbnail( $posts[0]->ID, 'archive-image'  );
 				}
 				
 				echo '<article class="entry one-fourth '.$args["taxonomy"].'">';
@@ -92,7 +94,7 @@ function rc_taxonomy_list( $atts ) {
 						
 						echo '<h2 class="entry-title" itemprop="headline"><a href="'.get_term_link( $cat ).'">'.$cat->name.'</a></h2>';
 					
-						echo '<a class="more-link" href="'.get_term_link( $cat ).'">View Firing <i class="fa fa-long-arrow-right"></i></a>';
+						printf(__('<a class="more-link" href="'.get_term_link( $cat ).'">%s <i class="fa fa-long-arrow-right"></i></a>', 'rc'), 'View Firing');
 						
 					echo '</header>';
 				

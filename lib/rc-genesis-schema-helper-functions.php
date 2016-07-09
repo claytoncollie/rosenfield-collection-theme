@@ -31,7 +31,7 @@ function rc_itemprop_name( $attr ) {
 // Remove the rel="author" and change it to itemprop="author" as the Structured Data Testing Tool doesn't understand 
 // rel="author" in relation to Schema, even though it should according to the spec.
 function rc_author_schema( $output ) {
-	return str_replace( 'rel="author"', 'itemprop="author"', $output );
+	return str_replace( 'rel="creator"', 'itemprop="creator"', $output );
 }
 
 // Add the url itemprop to the URL of the entry

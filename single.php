@@ -38,23 +38,32 @@ function rc_load_object_scripts() {
 
 // Object meta just below post title
 function rc_object_meta() {
-	echo '<p><a class="more-link" rel="author" href="' . get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) . '">View all objects by this artist <i class="fa fa-long-arrow-right"></i></a></p>';
+	printf(__('<p><a class="more-link" rel="author" href="' . get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) . '">%s <i class="fa fa-long-arrow-right"></i></a></p>','rc'), 'View all objects by this artist');
 }
 
 // Gallery Loop
 function rc_gallery_do_loop() {
 	
-	$images = get_field('images');
+	$images 		= get_field('images');
 
 	if( $images ) {
-		echo '<div id="slider" class="first three-fourths flexslider">';
+		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
 			echo '<ul class="slides">';
 				foreach( $images as $image ): 
 					echo '<li data-thumb="'.$image['sizes']['thumbnail'].'">';
-						echo '<img src="'.$image['sizes']['large'].'" alt="'.$image['alt'].'" title="'.$image['alt'].'" />';
-						echo '<a href="'.$image['url'].'" class="button attachment"><i class="fa fa-cloud-download"></i> High Resolution</a>';
+						echo '<img src="'.$image['sizes']['large'].'" alt="Made by '.get_the_author_meta( 'user_firstname' ).' '.get_the_author_meta( 'user_lastname' ).'" itemprop="workExample" />';
+						printf(__('<a href="'.$image['url'].'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'High Resolution');
 					echo '</li>';
 				endforeach;
+			echo '</ul>';
+		echo '</div>';
+	}elseif( has_post_thumbnail() ) {
+		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
+			echo '<ul class="slides">';
+				echo '<li itemprop="workExample">';
+					echo get_the_post_thumbnail(get_the_ID(), 'large', array( 'alt' => 'Made by '.get_the_author_meta( 'user_firstname' ).' '.get_the_author_meta( 'user_lastname' ).''));
+					printf(__('<a href="'.wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ).'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'High Resolution');
+				echo '</li>';
 			echo '</ul>';
 		echo '</div>';
 	}
@@ -62,8 +71,8 @@ function rc_gallery_do_loop() {
 
 // Object meta just below post title
 function rc_sidebar_meta() {
-	$forms 			= get_the_term_list(get_the_ID(), 'rc_form', '', ', ');
-	$firings 		= get_the_term_list(get_the_ID(), 'rc_firing', '', ', ');
+	$forms 			= get_the_term_list(get_the_ID(), 'rc_form', '<span itemprop="artForm">', '</span>, <span itemprop="artForm">','</span>');
+	$firings 		= get_the_term_list(get_the_ID(), 'rc_firing', '<span itemprop="artworkSurfce">', '</span>, <span itemprop="artworkSurface">','</span>');
 	$techniques 	= get_the_term_list(get_the_ID(), 'rc_technique', '', ', ');	
 	$rows			= get_the_term_list(get_the_ID(), 'rc_row', '', ', ');
 	$columns 		= get_the_term_list(get_the_ID(), 'rc_column', '', ', ');
@@ -75,7 +84,7 @@ function rc_sidebar_meta() {
 	$terms = get_the_terms( get_the_ID(), 'rc_form');
 	$object_id = get_field('object_id');
 	
-	echo '<div class="one-fourth sidebar sidebar-primary">';
+	echo '<div class="one-fourth sidebar sidebar-primary" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
 	
 		// we will use the first term to load ACF data from
 		if( !empty($terms) ) {
@@ -85,7 +94,7 @@ function rc_sidebar_meta() {
 			$prefix = get_field('rc_form_object_prefix', $term );
 			
 			echo '<div class="meta id">';
-				echo '<span class="object-meta-heading">ID</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'ID');
 				echo '<span class="object-id">'.$prefix . $object_id.'</span>';
 			echo '</div>';
 		}
@@ -93,7 +102,7 @@ function rc_sidebar_meta() {
 		// Loop for taxonomy FORM
 		if( !empty($forms) ) {
 			echo '<div class="meta form">';
-				echo '<span class="object-meta-heading">Form</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Form');
 				echo $forms;
 			echo '</div>';
 		}
@@ -101,7 +110,7 @@ function rc_sidebar_meta() {
 		if( !empty($firings) ) {
 			// Loop for taxonomy FIRING
 			echo '<div class="meta firing">';
-				echo '<span class="object-meta-heading">Firing</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Firing');
 				echo $firings;
 			echo '</div>';
 		}
@@ -109,7 +118,7 @@ function rc_sidebar_meta() {
 		if( !empty($techniques) ) {
 			// Loop for taxonomy TECHNIQUE
 			echo '<div class="meta technique">';
-				echo '<span class="object-meta-heading">Technique</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Technique');
 				echo $techniques;
 			echo '</div>';
 		}
@@ -117,15 +126,15 @@ function rc_sidebar_meta() {
 		// Dimensions
 		if($length || $width || $height) {
 			echo '<div class="meta dimensions">';
-				echo '<span class="object-meta-heading">Dimensions</span>';
-			 	echo '<span class="object-dimensions">'.$length . 'x' . $width . 'x' . $height .' inches</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Dimensions');
+			 	printf(__( '<span class="object-dimensions"><span itemprop="depth">'.$length . '</span>x<span itemprop="width">' . $width . '</span>x<span itemprop="height">' . $height .'</span> %s</span>', 'rc'), 'inches');
 			echo '</div>';
 		}
 		
 		if( !empty($rows) ) {
 			// Loop for taxonomy ROW
 			echo '<div class="meta row">';
-				echo '<span class="object-meta-heading">Row</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Row');
 				echo $rows;
 			echo '</div>';
 		}
@@ -133,7 +142,7 @@ function rc_sidebar_meta() {
 		if( !empty($columns) ) {
 			// Loop for taxonomy COLUMN
 			echo '<div class="meta column">';
-				echo '<span class="object-meta-heading">Column</span>';
+				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Column');
 				echo $columns;
 			echo '</div>';
 		}

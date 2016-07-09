@@ -4,7 +4,8 @@ jQuery(function( $ ){
                 selector: ".slides > li",
                 animation: "fade", 
                 controlNav: "thumbnails",
-				slideshow: false
+				slideshow: false,
+				directionNav: false, 
 	});
 });
 

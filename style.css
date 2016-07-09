@@ -37,9 +37,6 @@
 		- Titles
 		- WordPress
 	- Widgets
-	- Plugins
-		- Genesis eNews Extended
-		- Jetpack
 	- Site Header
 		- Title Area
 	- Site Navigation
@@ -77,7 +74,7 @@ HTML5 Reset
 	normalize.css v3.0.0 | MIT License | git.io/normalize
 --------------------------------------------- */
 
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}audio,canvas,progress,video{display:inline-block;vertical-align:baseline;}audio:not([controls]){display:none;height:0;}[hidden],template{display:none;}a{background:transparent;}a:active,a:hover{outline:0;}abbr[title]{border-bottom:1px dotted;}b,strong{font-weight:bold;}dfn{font-style:italic;}h1{font-size:2em;margin:0.67em 0;}mark{background:#ff0;color:#333;}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sup{top:-0.5em;}sub{bottom:-0.25em;}img{border:0;}svg:not(:root){overflow:hidden;}figure{margin:1em 40px;}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0;}pre{overflow:auto;}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em;}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0;}button{overflow:visible;}button,select{text-transform:none;}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}button[disabled],html input[disabled]{cursor:default;}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}input{line-height:normal;}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0;}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto;}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em;}legend{border:0;padding:0;}textarea{overflow:auto;}optgroup{font-weight:bold;}table{border-collapse:collapse;border-spacing:0;}td,th{padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}audio,canvas,progress,video{display:inline-block;vertical-align:baseline;}audio:not([controls]){display:none;height:0;}[hidden],template{display:none;}a{background:transparent;}a:active,a:hover{outline:0;}abbr[title]{border-bottom:1px dotted;}b,strong{font-weight:bold;}dfn{font-style:italic;}h1{font-size:2em;margin:0.67em 0;}mark{background:#ff0;color:#333;}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sup{top:-0.5em;}sub{bottom:-0.25em;}img{border:0;}svg:not(:root){overflow:hidden;}figure{margin:1em 40px;}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0;}pre{overflow:auto;}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em;}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0;}button{overflow:visible;}button,select{text-transform:none;}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}button[disabled],html input[disabled]{cursor:default;}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0;}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto;}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em;}legend{border:0;padding:0;}textarea{overflow:auto;}optgroup{font-weight:bold;}table{border-collapse:collapse;border-spacing:0;}td,th{padding:0;}
 
 /* Box Sizing
 --------------------------------------------- */
@@ -251,33 +248,33 @@ h6 {
 }
 
 h1 {
-	font-size: 3.0rem;
-	font-size: 30px;
+	font-size: 3.6rem;
+	font-size: 36px;
 }
 
 h2 {
-	font-size: 2.6rem;
-	font-size: 26px;
+	font-size: 2.2rem;
+	font-size: 22px;
 }
 
 h3 {
-	font-size: 2.0rem;
-	font-size: 20px;
-}
-
-h4 {
 	font-size: 1.6rem;
 	font-size: 16px;
 }
 
-h5 {
+h4 {
 	font-size: 1.4rem;
 	font-size: 14px;
 }
 
-h6 {
+h5 {
 	font-size: 1.2rem;
 	font-size: 12px;
+}
+
+h6 {
+	font-size: 1.0rem;
+	font-size: 10px;
 }
 
 /* Objects
@@ -294,7 +291,6 @@ video,
 
 img {
 	height: auto;
-	width: 100%;
 }
 
 img.post-image.entry-image {
@@ -323,12 +319,11 @@ textarea {
 	border: 1px solid #fff;
 	color: #fff;
 	font-family: "futura-pt", sans-serif;
-	font-size: 1.6rem;
-	font-size: 16px;
+	font-size: 1.4rem;
+	font-size: 14px;
 	font-weight: 400 ;
-	padding: 10px ;
+	padding: 10px 5px;
 	width: 100%;
-	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -367,7 +362,7 @@ input[type="submit"],
 	font-size: 16px;
 	font-weight: 400;
 	letter-spacing: 1px;
-	padding: 13px 35px;
+	padding: 10px 30px;
 	text-transform: uppercase;
 	width: auto;
 	border: 1px solid #ddd;
@@ -392,7 +387,7 @@ input:hover[type="submit"],
 
 .button.attachment {
 	position: absolute;
-    right: 1px;
+    left: 1px;
     bottom: 1px;
     background-color: rgba(0,0,0,.5);
     color: #fff;
@@ -1149,11 +1144,17 @@ p.entry-meta {
 .adjacent-entry-pagination a:hover,
 .archive-pagination li a:hover,
 .archive-pagination .active a,
-.pagination a:hover {
+.pagination a:hover,
+.pagination .current {
 	color: #fff;
 	background-color: #222;
 	padding: 10px 20px;
 }
+
+.pagination .current {
+    padding: 13px 20px;
+    vertical-align: middle;
+} 
 
 .archive-pagination li {
 	display: inline;
@@ -1333,6 +1334,12 @@ input:-moz-placeholder { color:#FFF; }
 	margin-top: 0;
 }
 
+.footer-widgets .gform_wrapper .top_label li.gfield.gf_left_half, 
+.footer-widgets .gform_wrapper .top_label li.gfield.gf_right_half {
+    vertical-align: bottom;
+    margin-bottom: 7px;
+}
+
 
 /*
 Site Footer
@@ -1451,7 +1458,7 @@ Single Artist Archive
 .author-info .wrap,
 .taxonomy-content .wrap {
 	width: 768px;
-	margin: 30px auto;
+	margin: 50px auto;
 }
 
 .author-info img {
@@ -1463,7 +1470,8 @@ Single Artist Archive
 
 .author-info h1,
 .taxonomy-content h1,
-.rc-title-description .page.entry h1 {
+.rc-title-description h1.entry-title,
+.rc-page-taxonomy h1.entry-title {
 	font-family: "futura-pt", sans-serif;
 	font-size: 4.0rem;
 	font-size: 40px;
@@ -1501,9 +1509,10 @@ Single Artist Archive
 /*
 Title Description
 ---------------------------------------------------------------------------------------------------- */
-.rc-title-description.rc-grid .page.entry {
+.rc-title-description.rc-grid h1.entry-title,
+.rc-page-taxonomy h1.entry-title {
 	width: 768px;
-    margin: 30px auto;
+    margin: 50px auto;
     float: none;
     background-color: #f1f1f1;
     box-shadow: 0 0;
@@ -1519,10 +1528,21 @@ Search Form Widget
 	margin: 0 auto 30px;
 }
 
+.searchandfilter select.sf-input-select {
+    min-width: 188px !important;
+}
+
+.searchandfilter ul li {
+	display: inline-block !important;
+}
+
 .sf-field-search {
-	
 	width: 100%;
 	display: block;
+}
+
+.searchandfilter .sf-field-search label {
+	display: block !important;
 }
 
 .sf-field-reset {
@@ -1530,8 +1550,16 @@ Search Form Widget
 	text-align: center;
 }
 
-.searchandfilter ul li {
-	display: inline-block !important;
+.footer-widgets .gform_wrapper .gform_footer input.button, 
+.footer-widgets .gform_wrapper .gform_footer input[type=submit], 
+.footer-widgets .gform_wrapper .gform_page_footer input.button, 
+.footer-widgets .gform_wrapper .gform_page_footer input[type=submit] {
+	width: 98%;
+	margin-top: 7px;
+}
+
+.overlay .searchandfilter label {
+	display: block !important;
 }
 
 .overlay .searchandfilter ul li {
@@ -1736,10 +1764,10 @@ body .overlay .overlay-close {
   -webkit-backface-visibility: hidden;
 }
 .flexslider .slides img {
-	width: 100%;
 	display: block;
 	box-shadow: 3px 3px rgba(0,0,0,.1);
 	border: 1px solid #ccc;
+	text-align: center;
 }
 .flexslider .slides:after {
   content: "\0020";
@@ -1949,20 +1977,17 @@ html[xmlns] .flexslider .slides {
   margin: 2% 0 0;
   position: static;
   overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .flex-control-thumbs li {
   float: left;
-  margin: 0 0 2% 2%;
-}
-
-.flex-control-thumbs li:nth-child(5n+1) {
-	margin-left: 0;
+  margin: 0 0 3% 0%;
 }
 
 .flex-control-thumbs img {
-	width: 150px;
-	height: 150px;
 	display: block;
 	opacity: .7;
 	cursor: pointer;
@@ -2060,6 +2085,10 @@ Media Queries
 	.one-fourth, .rc-grid li.cat-item {
 		width: 31.56%;
 	}
+
+	.single .one-fourth {
+		width: 23.076923076923077%;
+	}
 	
 	.one-fourth.entry:nth-child(4n+1),
 	.rc-grid li.cat-item:nth-child(4n+1),
@@ -2096,6 +2125,8 @@ Media Queries
 }
 
 @media only screen and (max-width: 1024px) {
+
+
 
 	.one-fourth, .rc-grid li.cat-item {
 		width: 48.66%;
@@ -2154,6 +2185,10 @@ Media Queries
 
 @media only screen and (max-width: 900px) {
 	
+	.site-inner .wrap {
+		padding: 0 5% 5% 5%;
+	}
+
 	.one-eighth {
 		width: 31.5%;
 	}
@@ -2185,8 +2220,10 @@ Media Queries
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 770px) {
 	
+
+
 	.home-featured .wrap,
 	.search-form .wrap,
 	.footer-widgets .wrap,
@@ -2216,8 +2253,26 @@ Media Queries
 	.button,
 	.author-info .wrap, 
 	.taxonomy-content .wrap,
-	.footer-widgets .wrap {
+	.footer-widgets .wrap,
+	.single .three-fourths,
+	.single .one-fourth {
 		width: 100%;
+	}
+
+	.single .one-fourth {
+		margin: 0;
+	}
+
+	.flexslider {
+		margin-bottom: 30px;
+	}
+
+
+	.button.attachment {
+   		padding: 5px 5px;
+    	font-size: .8rem;
+    	font-size: 8px;
+    	width: 105px;
 	}
 	
 	.gform_wrapper .top_label li.gfield.gf_left_half,
@@ -2557,6 +2612,11 @@ Media Queries
 	.artist-archive .entry:nth-child(2n+1),
 	.artist-archive .entry:nth-child(1n+1) {
   		margin-left: 0;
+	}
+
+	.flex-control-thumbs img {
+		width: 60px;
+		height: 60px;
 	}
 
 }

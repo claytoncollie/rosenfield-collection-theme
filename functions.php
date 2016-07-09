@@ -9,15 +9,6 @@
  * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  *
  */
-/**
- * Theme Setup
- * @since 1.0.0
- *
- * This setup function attaches all of the site-wide functions 
- * to the correct hooks and filters. All the functions themselves
- * are defined below this setup function.
- *
- */
 add_action( 'genesis_setup', 'rc_theme_setup', 15 );
 function rc_theme_setup() {
 	//* Start the engine
@@ -38,7 +29,8 @@ function rc_theme_setup() {
 	add_theme_support( 'genesis-responsive-viewport' );
 	
 	//* Add new featured image size
-	add_image_size( 'artist-image', 275, 275, TRUE );
+	add_image_size( 'artist-image', 200, 200, TRUE );
+	add_image_size( 'archive-image', 440, 440, TRUE );
 	
 	//* Force full-width-content layout setting
 	add_filter( 'genesis_site_layout', '__genesis_return_full_width_content' );
@@ -71,6 +63,10 @@ function rc_theme_setup() {
 	//* Repositon the entry image
 	remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
 	add_action( 'genesis_entry_header', 'genesis_do_post_image', 8 );
+
+	//Move entry title to entry content below image
+	remove_action('genesis_entry_header','genesis_do_post_title');
+	add_action('genesis_entry_content','genesis_do_post_title');
 	
 	//* Remove the entry meta in the entry header (requires HTML5 theme support)
 	remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
@@ -125,11 +121,11 @@ function rc_theme_setup() {
 	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-schema-helper-functions.php' );
 	
 	// Call schema filters
-	add_filter( 'genesis_attr_entry', 'rc_schema_visualartwork', 20 );
-	add_filter( 'genesis_attr_entry-title', 'rc_itemprop_name', 20 );
-	add_filter( 'genesis_attr_entry-content', 'rc_itemprop_description', 20 );
-	add_filter( 'genesis_post_title_output', 'rc_title_link_schema', 20 );
-	add_filter( 'genesis_attr_content', 'rc_schema_empty', 20 );
+	add_filter( 'genesis_attr_entry', 			'rc_schema_visualartwork', 	20 );
+	add_filter( 'genesis_attr_entry-title', 	'rc_itemprop_name', 		20 );
+	add_filter( 'genesis_attr_entry-content', 	'rc_itemprop_description', 	20 );
+	add_filter( 'genesis_post_title_output', 	'rc_title_link_schema', 	20 );
+	add_filter( 'genesis_attr_content', 		'rc_schema_empty', 			20 );
 	
 }
 
@@ -189,21 +185,22 @@ function rc_entry_class( $classes ) {
 // Add artist name to end of post title
 function rc_add_author_name( $title ) {
 	
-	$first_name = get_the_author_meta( 'first_name' );
-	$last_name = get_the_author_meta( 'last_name' );
+	$first_name 	= get_the_author_meta( 'first_name' );
+	$last_name 		= get_the_author_meta( 'last_name' );
+
+	if(empty($first_name) && empty($last_name)) {
+		return $title;
+	}
 	
-	$title .= ' <span class="artist-attribution">by</span> <span class="artist-name">' . $first_name . ' ' . $last_name . '</span>';
+	$title .= ' <span class="artist-attribution">by</span> <span class="artist-name" itemprop="creator">' . $first_name . ' ' . $last_name . '</span>';
 
 	return $title;
 
 }
 
 // Edit read more link
-function rc_read_more() {
-	
-	$permalink = get_permalink( get_the_ID() );
-	
-	echo '<a class="more-link" href="'. $permalink.'">View Object <i class="fa fa-long-arrow-right"></i></a>';
+function rc_read_more() {	
+	printf( __('<a class="more-link" href="'.get_permalink( get_the_ID() ).'" rel="url">%s <i class="fa fa-long-arrow-right"></i></a>', 'rc' ), 'View Object' );
 }
 	
 // Add widget area on home page just after header
@@ -211,15 +208,17 @@ function rc_home_featured_widget() {
 	
 	if ( is_home() && is_front_page() && !is_paged() && !is_search() ) {
 		
-  		genesis_widget_area( 'home-featured', array(
-			'before' => '<div class="home-featured"><div class="wrap">',
-			'after'  => '',
-		) );
-		
+		if(is_active_sidebar('home-featured')) {
+	  		genesis_widget_area( 'home-featured', array(
+				'before' => '<div class="home-featured"><div class="wrap">',
+				'after'  => '',
+			) );
+		}
+
 		$result = count_users();
 		
-			echo '<div class="home-stats"><h2>'.$result['total_users'].'</h2><p>Artists</p></div>';
-			echo '<div class="home-stats"><h2>'.wp_count_posts()->publish.'</h2><p>Objects</p></div>';
+			printf( __('<div class="home-stats"><h2>'.$result['total_users'].'</h2><p>%s</p></div>','rc'), 'Artists');
+			printf( __('<div class="home-stats"><h2>'.wp_count_posts()->publish.'</h2><p>%s</p></div>','rc'), 'Objects');
 			
 		echo '</div></div>';
 		
@@ -229,9 +228,11 @@ function rc_home_featured_widget() {
 // Filter footer credits
 function rc_footer_creds_filter( $creds ) {
 	
-	$creds = '[footer_copyright] All Rights Reserved';
-	$site_title = get_bloginfo('name');
-	$login = do_shortcode( '[footer_loginout]' );
+	$footer 		 = '<div class="credits">';
+	$footer 		.= '<span class="copyright">[footer_copyright] All Rights Reserved</span>';
+	$footer 		.= '<span class="credits-title">'.get_bloginfo('name').'</span>';
+	$footer 		.= '<span class="login-link">'.do_shortcode( '[footer_loginout]' ).'</span>';
+	$footer 		.= '</div>';
 	
-	return '<div class="credits"><span class="copyright">'.$creds.'</span><span class="credits-title">'.$site_title.'</span><span class="login-link">'.$login.'</span></div>';
+	return $footer;
 }

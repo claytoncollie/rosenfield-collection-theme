@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page - Author
+ * Page - Author
  *
  * @package      Rosenfield Collection Theme
  * @since        1.0.0
@@ -25,31 +25,33 @@ function rc_author_info() {
 
 	global $wp_query;
 	
-	$curauth = $wp_query->get_queried_object();
+	$curauth 				= $wp_query->get_queried_object();
 
-	$id = $curauth->ID;
+	$id 					= $curauth->ID;
 	
-	$attachment_id = get_field( 'artist_photo', 'user_'.$id );
-	$size = "thumbnail"; 
-	$avatar = wp_get_attachment_image_src( $attachment_id, $size );
+	$attachment_id 			= get_field( 'artist_photo', 'user_'.$id );
+	$size 					= "thumbnail"; 
+	$avatar 				= wp_get_attachment_image_src( $attachment_id, $size );
 	
-	$first_name = $curauth->first_name;
-	$last_name = $curauth->last_name;
-	$website = $curauth->user_url;
-	$twitter = $curauth->twitter;
-	$facebook = $curauth->facebook;
-	$instagram = $curauth->instagram;
-	$pinterest = $curauth->pinterest;
-	$bio = $curauth->description;	 
+	$first_name 			= $curauth->first_name;
+	$last_name 				= $curauth->last_name;
+	$website 				= $curauth->user_url;
+	$twitter 				= $curauth->twitter;
+	$facebook 				= $curauth->facebook;
+	$instagram 				= $curauth->instagram;
+	$pinterest 				= $curauth->pinterest;
+	$bio 					= $curauth->description;	 
 	
-	echo '<div class="author-info"><div class="wrap">';
+	echo '<div class="author-info" itemscope="itemscope" itemtype="http://schema.org/Person"><div class="wrap">';
 		
 		if($avatar) {
-			echo '<img src="'.$avatar[0].'" alt="'.$first_name.' '.$last_name.'" title="'.$first_name.' '.$last_name.'"/>';
+			echo '<img src="'.$avatar[0].'" alt="'.$first_name.' '.$last_name.'" title="'.$first_name.' '.$last_name.'" itemprop="image"/>';
 		}
 		
-		echo '<h1 class="entry-title">' . $first_name .' '. $last_name . '</h1>';
-	
+		if($first_name || $last_name) {
+			echo '<h1 class="entry-title" itemprop="name">' . $first_name .' '. $last_name . '</h1>';
+		}
+
 		if($website) {
 			echo '<div class="author-website"><p><a target="_blank" href="' . $website . '">' . $website . '</a></div>';
 		}
@@ -71,13 +73,12 @@ function rc_author_info() {
 		}
 		
 		if($bio) {
-			echo '<div class="author-bio"><p>' . $bio . '</p></div>';
+			echo '<div class="author-bio"><p itemprop="description">' . $bio . '</p></div>';
 		}
 		
 	echo '</div></div>';
 	
 }
-
 
 //* Run the Genesis loop
 genesis();

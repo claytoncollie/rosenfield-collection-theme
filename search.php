@@ -22,14 +22,16 @@ function rc_search_form_widget() {
 	
 	echo '<div class="search-featured"><div class="wrap">';
 	
-		printf(	__('<h1 class="entry-title">Search Results</h1><p>%s</p>', 'rc'), get_search_query() );
+		printf(	__('<h1 class="entry-title">%s</h1><p>%s</p>', 'rc'), 'Search Results', get_search_query() );
 		
 	echo '</div></div>';
-			
+	
+	if(is_active_sidebar('search-form')) {		
 		genesis_widget_area( 'search-form', array(
 			'before' => '<div class="search-form"><div class="wrap">',
 			'after'  => '</div></div>',
-		) );	
+		) );
+	}	
 }
 
 //* Run the Genesis loop
