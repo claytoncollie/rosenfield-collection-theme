@@ -13,6 +13,9 @@ add_action( 'genesis_setup', 'rc_theme_setup', 15 );
 function rc_theme_setup() {
 	//* Start the engine
 	include_once( get_template_directory() . '/lib/init.php' );
+
+	//* Set Localization (do not remove)
+	load_child_theme_textdomain( 'rc', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'rc' ) );
 	
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
@@ -24,6 +27,9 @@ function rc_theme_setup() {
 	
 	//* Add HTML5 markup structure
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
+
+	//* Add accessibility support
+	add_theme_support( 'genesis-accessibility', array( '404-page', 'drop-down-menu', 'rems', 'search-form', 'skip-links' ) );
 	
 	//* Add viewport meta tag for mobile browsers
 	add_theme_support( 'genesis-responsive-viewport' );
@@ -54,7 +60,7 @@ function rc_theme_setup() {
 	// Add widget area on home page just after header
 	add_action( 'genesis_after_header', 'rc_home_featured_widget');
 	
-	// Filter he site foote credits
+	// Filter the site foote credits
 	add_filter( 'genesis_footer_output', 'rc_footer_creds_filter' );
 
 	// Gravity forms hide field labels
@@ -78,22 +84,18 @@ function rc_theme_setup() {
 	remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_open', 5 );
 	remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
 	remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_close', 15 );
-	
+		
+	//* Add grid body class
+	add_filter( 'body_class', 'rc_grid_body_class' );
+
 	// Display in cloumns
 	add_filter( 'post_class', 'rc_entry_class' );
 	
 	// Read more button
 	add_action( 'genesis_entry_content' , 'rc_read_more', 12 );
 
-	//* Force full-width-content layout setting
-	add_filter( 'genesis_site_layout', '__genesis_return_full_width_content' );
-	
-	//* Add grid body class
-	add_filter( 'body_class', 'rc_grid_body_class' );
-	
 	// Add artist name to end of post title
 	add_filter( 'genesis_post_title_text', 'rc_add_author_name' );
-
 
 	// Register widget areas
 	//-----------------------------------------------------------------------------------------------------
@@ -108,13 +110,13 @@ function rc_theme_setup() {
 	//* Custom functions
 	//------------------------------------------------------------------------------------------------------
 
-	//* Cat titles
+	//* Populate category titles automatically
 	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-taxonomy-titles.php' );
 	
-	//* page and sidebar templates
+	//* unregister Genesis default functions
 	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-unregister.php' );
 	
-	//* OVerlay search functions
+	//* Overlay search functions
 	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-overlay-search.php' );
 	
 	//* Genesis schmea helper functions
@@ -137,6 +139,12 @@ function rc_load_scripts_styles() {
 	wp_enqueue_script( 'search-overlay', get_stylesheet_directory_uri() . '/js/search-overlay.js', array( 'rc-global' ), '1.0.0', true );
 
 	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
+
+	wp_enqueue_script( 'rc-responsive-menu', get_stylesheet_directory_uri() . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0', true );
+	$output = array(
+		'mainMenu' => __( 'Menu', 'rc' ),
+	);
+	wp_localize_script( 'rc-responsive-menu', 'rosenfieldCollectionL10n', $output );
 
 }
 
