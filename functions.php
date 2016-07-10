@@ -134,15 +134,15 @@ function rc_theme_setup() {
 // Enqueue scripts
 function rc_load_scripts_styles() {
 	
-	wp_enqueue_script( 'rc-global', get_bloginfo( 'stylesheet_directory' ) . '/js/global.js', array( 'jquery' ), '1.0.0', false );
+	wp_enqueue_script( 'Modernizr', get_bloginfo( 'stylesheet_directory' ) . '/js/modernizr.min.js', array( 'jquery' ), '2.7.1', true );
 	
-	wp_enqueue_script( 'search-overlay', get_stylesheet_directory_uri() . '/js/search-overlay.js', array( 'rc-global' ), '1.0.0', true );
+	wp_enqueue_script( 'search-overlay', get_stylesheet_directory_uri() . '/js/search-overlay.js', array( 'Modernizr' ), '1.0.0', true );
 
 	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 
 	wp_enqueue_script( 'rc-responsive-menu', get_stylesheet_directory_uri() . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0', true );
 	$output = array(
-		'mainMenu' => __( 'Menu', 'rc' ),
+		'mainMenu' => __( '<span class="helperText">Menu</span>', 'rc' ),
 	);
 	wp_localize_script( 'rc-responsive-menu', 'rosenfieldCollectionL10n', $output );
 

@@ -44,7 +44,7 @@ function rc_object_meta() {
 // Gallery Loop
 function rc_gallery_do_loop() {
 	
-	$images 		= get_field('images');
+	$images = get_field('images');
 
 	if( $images ) {
 		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
@@ -52,7 +52,7 @@ function rc_gallery_do_loop() {
 				foreach( $images as $image ): 
 					echo '<li data-thumb="'.$image['sizes']['thumbnail'].'">';
 						echo '<img src="'.$image['sizes']['large'].'" alt="Made by '.get_the_author_meta( 'user_firstname' ).' '.get_the_author_meta( 'user_lastname' ).'" itemprop="workExample" />';
-						printf(__('<a href="'.$image['url'].'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'High Resolution');
+						printf(__('<a href="'.$image['url'].'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'Download');
 					echo '</li>';
 				endforeach;
 			echo '</ul>';
@@ -62,7 +62,7 @@ function rc_gallery_do_loop() {
 			echo '<ul class="slides">';
 				echo '<li itemprop="workExample">';
 					echo get_the_post_thumbnail(get_the_ID(), 'large', array( 'alt' => 'Made by '.get_the_author_meta( 'user_firstname' ).' '.get_the_author_meta( 'user_lastname' ).''));
-					printf(__('<a href="'.wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ).'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'High Resolution');
+					printf(__('<a href="'.wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ).'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'Download');
 				echo '</li>';
 			echo '</ul>';
 		echo '</div>';
@@ -72,7 +72,7 @@ function rc_gallery_do_loop() {
 // Object meta just below post title
 function rc_sidebar_meta() {
 	$forms 			= get_the_term_list(get_the_ID(), 'rc_form', '<span itemprop="artForm">', '</span>, <span itemprop="artForm">','</span>');
-	$firings 		= get_the_term_list(get_the_ID(), 'rc_firing', '<span itemprop="artworkSurfce">', '</span>, <span itemprop="artworkSurface">','</span>');
+	$firings 		= get_the_term_list(get_the_ID(), 'rc_firing', '', ', ');
 	$techniques 	= get_the_term_list(get_the_ID(), 'rc_technique', '', ', ');	
 	$rows			= get_the_term_list(get_the_ID(), 'rc_row', '', ', ');
 	$columns 		= get_the_term_list(get_the_ID(), 'rc_column', '', ', ');
@@ -81,8 +81,8 @@ function rc_sidebar_meta() {
 	$height			= get_field('height');
 	
 	// load all 'rc_form' terms for the post
-	$terms = get_the_terms( get_the_ID(), 'rc_form');
-	$object_id = get_field('object_id');
+	$terms 			= get_the_terms( get_the_ID(), 'rc_form');
+	$object_id 		= get_field('object_id');
 	
 	echo '<div class="one-fourth sidebar sidebar-primary" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
 	

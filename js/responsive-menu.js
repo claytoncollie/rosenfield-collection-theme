@@ -39,8 +39,8 @@
 		}
 		$( 'nav .sub-menu' ).before( toggleButtons.submenu ); // add the submenu nav buttons
 		$( '.' + mainMenuButtonClass ).each( _addClassID );
-		$( '.' + mainMenuButtonClass ).addClass('dashicons-before dashicons-menu');
-		$( '.' + subMenuButtonClass ).addClass('dashicons-before dashicons-arrow-down');
+		$( '.' + mainMenuButtonClass ).addClass('fa fa-bars');
+		$( '.' + subMenuButtonClass ).addClass('fa fa-arrow-down');
 		$( window ).on( 'resize.rosenfieldCollection', _doResize ).triggerHandler( 'resize.rosenfieldCollection' );
 		$( '.' + mainMenuButtonClass ).on( 'click.rosenfieldCollection-mainbutton', _mainmenuToggle );
 		$( '.' + subMenuButtonClass ).on( 'click.rosenfieldCollection-subbutton', _submenuToggle );
