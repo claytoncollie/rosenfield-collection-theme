@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page - Add Object
+ * Template Name: Page - Manage
  *
  * @package      Rosenfield Collection Theme
  * @since        1.0.0
@@ -9,11 +9,11 @@
  * @license      http://opensource.org/licenses/gpl-2.0.php GNU Public License
  *
  */
-add_action( 'genesis_meta', 'rc_page_add_object_genesis_meta' );
-function rc_page_add_object_genesis_meta() {
+add_action( 'genesis_meta', 'rc_page_manage_genesis_meta' );
+function rc_page_manage_genesis_meta() {
 	
 	//* Add custom body class
-	add_filter( 'body_class', 'rc_add_object_body_class' );
+	add_filter( 'body_class', 'rc_manage_body_class' );
 	
 	//* Add entry content
 	add_action( 'genesis_entry_content', 'genesis_do_post_content' );
@@ -30,9 +30,9 @@ function rc_page_add_object_genesis_meta() {
 }
 
 // Add custom body class
-function rc_add_object_body_class( $classes ) {
+function rc_manage_body_class( $classes ) {
 	
-	$classes[] = 'add-object';
+	$classes[] = 'manage';
 	return $classes;
 
 }

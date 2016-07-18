@@ -52,7 +52,7 @@ function rc_list_authors_loop() {
     $args = array( 
 		'order'          			=> 'ASC',
 		'orderby' 		 			=> 'display_name',
-		'exclude'		 			=> array (15, 2),
+		'exclude'		 			=> array (15, 2, 519),
 		'has_published_posts' 		=> array('post'),
 		'number'    	 			=> $number,
 		'offset' 					=> $offset,

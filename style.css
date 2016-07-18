@@ -302,9 +302,9 @@ img.user-thumbnail {
 	max-height: 100px;
 }
 
-.add-onbject img,
-.add-object img.gform_ajax_spinner,
-.add-object img.gform_delete {
+.manage img,
+.manage img.gform_ajax_spinner,
+.manage img.gform_delete {
 	width: 15px;
 }
 
@@ -496,6 +496,9 @@ Structure and Layout
 	width: 100%;
 }
 
+.manage .site-inner .wrap {
+	max-width: 1140px;
+}
 
 .single-post .site-inner {
 	margin-top: 0;
@@ -1416,24 +1419,24 @@ Site Footer
 
 /* Add Object
 -----------------------------------------------------------------------------------------------*/
-.add-object .entry {
+.manage .entry {
 	width: 100%;
 }
 
-.add-object input,
-.add-object select,
-.add-object textarea {
+.manage input,
+.manage select,
+.manage textarea {
 	background-color: #fff;
 	color: #000;
 	border: 1px solid #ddd;
 }
 
-.add-object .gform_wrapper ul li.gfield,
-.add-object .gform_wrapper textarea {
+.manage .gform_wrapper ul li.gfield,
+.manage .gform_wrapper textarea {
 	margin-bottom: 40px !important;
 }
 
-.add-object .gform_wrapper .gf_step span.gf_step_number {
+.manage .gform_wrapper .gf_step span.gf_step_number {
 	background-color: #aaa;
     color: #333;
     padding: 10px 17px;
@@ -1445,7 +1448,7 @@ Site Footer
     top: -8px;
 	border: 1px solid #555;
 }
-.add-object .gform_wrapper .gf_step_active span.gf_step_number {
+.manage .gform_wrapper .gf_step_active span.gf_step_number {
 	background-color: #000;
     color: #fff;
     padding: 10px 17px;
