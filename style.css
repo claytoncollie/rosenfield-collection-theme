@@ -773,6 +773,7 @@ Site Header
 .title-area p,
 .title-area h1 {
 	margin: 0;
+	line-height: 1.4
 }
 
 .site-title a,
@@ -1230,20 +1231,20 @@ p.entry-meta {
 
 /* Sidebar
 ----------------------------------------------------------------------------------------------------*/
-.sidebar .meta {
+.meta {
 	border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
 
-.sidebar .meta .object-meta,
-.sidebar .meta .object-id,
-.sidebar .meta .object-dimensions {
+.meta .object-meta,
+.meta .object-id,
+.meta .object-dimensions {
 	display: inline-block;
 	margin-left: 10px;
 }
 
-.sidebar .object-meta-heading {
+.object-meta-heading {
     text-transform: uppercase;
     font-family: 'futura-pt', sans-serif;
     font-weight: 700;
@@ -1255,7 +1256,7 @@ p.entry-meta {
 	display: inline-block;
 }
 
-.sidebar .meta a:hover {
+.meta a:hover {
 	border-bottom: 1px dotted #000;
 }
 
@@ -1461,6 +1462,47 @@ Site Footer
 	border: 0;
 }
 
+
+/*
+Report Page Template
+---------------------------------------------------------------------------------------------------- */
+.report .user,
+.report .entry {
+	display: block;
+	width: 100%;
+}
+
+.report .entry {
+	background-color: #fff;
+	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	width: 48%;
+	margin-right: 2%;
+}
+
+.report .thumbnail .wp-post-image {
+	margin-bottom: -8px;
+}
+
+.report .entry .copy {
+	padding: 7px 0;
+	font-size: 14px;
+}
+
+.report .post-count { 
+	color: #333;
+	font-family: "expo-serif-pro", sans-serif;
+	font-size: 1.6rem;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0.3px;
+	font-style: italic;
+	margin-left: 5px;
+}
+
+.report .info-card td {
+	width: 180px;
+}
+
 /*
 Home Featured Widget
 ---------------------------------------------------------------------------------------------------- */
@@ -1553,6 +1595,7 @@ Single Artist Archive
 .author-bio {
 	text-align: left;
 }
+
 
 /*
 Title Description
@@ -2735,4 +2778,138 @@ Media Queries
 		height: 60px;
 	}
 
+}
+
+/* # Print Styles
+---------------------------------------------------------------------------------------------------- */
+
+@media print {
+
+	*,
+	*:before,
+	*:after {
+		box-shadow: none !important;
+	}
+
+	body {
+		background-color: #fff;
+	}
+
+	.site-container {
+		padding: 0 2%;
+	}
+
+	thead {
+		display: table-header-group;
+	}
+
+	img {
+		page-break-before: auto; 
+    	page-break-after: auto; 
+    	page-break-inside: avoid; 
+		max-width: 100% !important;
+	}
+
+	@page {
+		margin: 2cm 0.5cm;
+	}
+
+	p,
+	h2,
+	h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	.entry,
+	blockquote,
+	pre {
+		border: 1px solid #eee;
+		page-break-inside: avoid;
+	}
+
+	.content,
+	.content-sidebar,
+	.content-sidebar .content, 
+	.sidebar-content .content {
+		width: 100%;
+	}
+
+	.archive-description {
+		padding: 0;
+	}
+
+	button,
+	input,
+	select,
+	textarea,
+	.breadcrumb,
+	.comment-edit-link,
+	.comment-form,
+	.comment-list .reply a,
+	.comment-reply-title,
+	.edit-link,
+	.entry-comments-link,
+	.genesis-box,
+	.hidden-print,
+	.home-top,
+	.nav-primary,
+	.nav-secondary,
+	.post-edit-link,
+	.sidebar,
+	.footer-widgets-1,
+	.header-widget-area,
+	.prev-next-post-links,
+	.footer-widgets,
+	.site-footer {
+		display: none !important;
+	}
+
+
+	.title-area {
+		width: 100%;
+		text-align: center;
+	}
+
+	.site-title > a {
+		margin: 0;
+		text-decoration: none;
+		text-indent: 0;
+	}
+
+	.author-box {
+		margin-bottom: 0;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		orphans: 3;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+		widows: 3;
+	}
+
+	img {
+		page-break-after: avoid;
+		page-break-inside: avoid;
+	}
+
+	blockquote,
+	pre {
+		page-break-inside: avoid;
+	}
+
+	dl,
+	ol,
+	ul {
+		page-break-before: avoid;
+	}
+
+	.ui-tabs-nav { display: none; }
+	.ui-tabs .ui-tabs-hide { display: block !important; }
+	.ui-tabs .ui-tabs-panel { display: block !important; margin: 0 0 0 0; border-top: 0;}
 }
