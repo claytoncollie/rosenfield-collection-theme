@@ -18,6 +18,9 @@ function rc_page_report_genesis_meta() {
 	//* Force full-width-content layout setting
 	add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
+	// Dispaly totals
+	add_action('genesis_after_header', 'rc_totals');
+
 	//* Remove the post content (requires HTML5 theme support)
 	remove_action('genesis_loop','genesis_do_loop');
 	add_action('genesis_loop', 'rc_list_all_posts');
@@ -32,6 +35,27 @@ function rc_report_body_class( $classes ) {
 
 }
 
+// Display totals
+function rc_totals() {
+
+	$total_artists 	= count_users();
+	$forms 			= get_terms( 'rc_form' );
+
+	echo '<div class="report-stats">';
+		echo '<div class="wrap globals">';
+			printf( __('<div class="first one-half"><h2>'.$total_artists['total_users'].'</h2><p>%s</p></div>','rc'), 'Artists');
+			printf( __('<div class="one-half"><h2>'.wp_count_posts()->publish.'</h2><p>%s</p></div>','rc'), 'Objects');
+		echo '</div>';
+		if ( ! empty( $forms ) && ! is_wp_error( $forms ) ) {
+			echo '<div class="wrap taxonomy">';
+			foreach($forms as $form) {				
+				printf( __('<div class="one-twelfth"><h2>%s</h2><p>%s</p></div>','rc'), $form->count, $form->name);
+			}
+		}
+		echo '</div>';
+	echo '</div>';
+}
+
 function rc_list_all_posts() {
 	global $post;
 
@@ -41,7 +65,7 @@ function rc_list_all_posts() {
 		//'number'	   => 20
 	 ); 
 
-	$artists = get_users( $user_args );
+	$artists 		= get_users( $user_args );
 
 	foreach($artists as $artist) {
 		
@@ -96,8 +120,10 @@ function rc_list_all_posts() {
 								    	printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Row');
 								    	echo get_the_term_list(get_the_ID(), 'rc_row', '', ', ').'</td>';
 								    echo '<td>';
-								    	printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), '$');
-								    	echo get_field('rc_object_purchace_price').'</td>';
+								    	if( get_field('rc_object_purchace_price') ) {
+								    		printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), '$');
+								    		echo get_field('rc_object_purchace_price').'</td>';
+								    	}
 								  echo '</tr>';
 								echo '</table>';	
 							echo '</div>';
