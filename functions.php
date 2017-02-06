@@ -20,7 +20,7 @@ function rc_theme_setup() {
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
 	define( 'CHILD_THEME_URL', 'http://www.rosenfieldcollection.com' );
-	define( 'CHILD_THEME_VERSION', '1.0.0' );
+	define( 'CHILD_THEME_VERSION', '1.2.3' );
 	
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_scripts_styles' );
@@ -97,27 +97,27 @@ function rc_theme_setup() {
 	// Add artist name to end of post title
 	add_filter( 'genesis_post_title_text', 'rc_add_author_name' );
 
+	// Filter menu items, appending a a search icon at the end.
+	add_filter( 'wp_nav_menu_items', 'rc_menu_extras', 10, 2 );
+
+	//Add title to taxonomy pages
+	add_action( 'genesis_after_header', 'rc_do_taxonomy_title_description', 10 );
+
 	// Register widget areas
 	//-----------------------------------------------------------------------------------------------------
 	genesis_register_sidebar( array(
 		'id'          => 'home-featured',
-		'name'        => __( 'Home Featured', 'rc' ),
+		'name'        => __( 'Home - Featured', 'rc' ),
 	) );
 	genesis_register_sidebar( array(
-		'id'          => 'search-form',
-		'name'        => __( 'Search Form', 'rc' ),
+		'id'          => 'search-sidebar',
+		'name'        => __( 'Sidebar - Search', 'rc' ),
 	) );
 	//* Custom functions
 	//------------------------------------------------------------------------------------------------------
-
-	//* Populate category titles automatically
-	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-taxonomy-titles.php' );
 	
 	//* unregister Genesis default functions
 	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-unregister.php' );
-	
-	//* Overlay search functions
-	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-overlay-search.php' );
 	
 	//* Genesis schmea helper functions
 	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-schema-helper-functions.php' );
@@ -134,13 +134,9 @@ function rc_theme_setup() {
 // Enqueue scripts
 function rc_load_scripts_styles() {
 	
-	wp_enqueue_script( 'Modernizr', get_bloginfo( 'stylesheet_directory' ) . '/js/modernizr.min.js', array( 'jquery' ), '2.7.1', true );
-	
-	wp_enqueue_script( 'search-overlay', get_stylesheet_directory_uri() . '/js/search-overlay.js', array( 'Modernizr' ), '1.0.0', true );
-
 	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
 
-	wp_enqueue_script( 'rc-responsive-menu', get_stylesheet_directory_uri() . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'rc-responsive-menu', get_stylesheet_directory_uri() . '/js/responsive-menu.js', array( 'jquery' ), CHILD_THEME_VERSION, true );
 	$output = array(
 		'mainMenu' => __( '<span class="helperText">Menu</span>', 'rc' ),
 	);
@@ -168,8 +164,6 @@ function rc_grid_body_class( $classes ) {
 function rc_entry_class( $classes ) {
 		
 	global $wp_query;
-	if( !$wp_query->is_main_query() ) 
-		return $classes;
 		
 	$columns = 4;
 	
@@ -231,6 +225,47 @@ function rc_home_featured_widget() {
 		echo '</div></div>';
 		
 	}
+}
+
+// Menu item for search icon
+function rc_menu_extras( $menu, $args ) {
+ 
+	//* Change 'primary' to 'secondary' to add extras to the secondary navigation menu
+	if ( 'primary' !== $args->theme_location )
+		return $menu;
+	
+	$menu .= '<li class="menu-item alignright"><a class="search-icon" href="'.site_url().'/search"><i class="fa fa-search"></i></a></li>';
+	
+	return $menu;
+ 
+}
+
+// Titles for taxonomy pages
+function rc_do_taxonomy_title_description() {
+
+	global $wp_query;
+
+	if ( ! is_category() && ! is_tag() && ! is_tax() )
+		return;
+
+	if ( get_query_var( 'paged' ) >= 2 )
+		return;
+
+	$term = is_tax() ? get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ) : $wp_query->get_queried_object();
+
+	if ( ! $term || ! isset( $term->meta ) )
+		return;
+
+	$headline = '';
+
+	// If we have a headline already, then return, otherwise auto-generate
+	if ( $term->meta['headline'] )
+		return;
+	else {
+		$headline = sprintf( '<h1 class="entry-title">%s</h1>', single_term_title( '', false ) );
+		printf( '<div class="taxonomy-content"><div class="wrap">%s</div></div>', $headline );
+	}
+
 }
 
 // Filter footer credits

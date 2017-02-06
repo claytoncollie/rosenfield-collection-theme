@@ -50,15 +50,7 @@ remove_theme_support( 'genesis-inpost-layouts' );
 remove_action('genesis_meta', 'genesis_load_favicon');
 remove_action( 'wp_head', 'genesis_load_favicon' );
 
-/**
- * Remove Genesis Page Templates
- *
- * @author Bill Erickson
- * @link http://www.billerickson.net/remove-genesis-page-templates
- *
- * @param array $page_templates
- * @return array
- */
+// Remove page templates
 add_filter( 'theme_page_templates', 'be_remove_genesis_page_templates' );
 function be_remove_genesis_page_templates( $page_templates ) {
 	unset( $page_templates['page_archive.php'] );
