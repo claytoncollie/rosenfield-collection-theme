@@ -21,7 +21,7 @@ function rc_theme_setup() {
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
 	define( 'CHILD_THEME_URL', 'http://www.rosenfieldcollection.com' );
-	define( 'CHILD_THEME_VERSION', '1.3.4' );
+	define( 'CHILD_THEME_VERSION', '1.3.5' );
 	
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_scripts_styles' );
@@ -280,7 +280,7 @@ function rc_do_taxonomy_title_description() {
 		return;
 	}else{
 		$headline = sprintf( '<h1 class="entry-title">%s</h1>', single_term_title( '', false ) );
-		printf( '<div class="taxonomy-content"><div class="wrap">%s</div></div>', esc_html( $headline ) );
+		printf( '<div class="taxonomy-content"><div class="wrap">%s</div></div>', $headline );
 	}
 
 }
