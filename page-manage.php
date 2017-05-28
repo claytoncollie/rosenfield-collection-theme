@@ -30,11 +30,9 @@ function rc_page_manage_genesis_meta() {
 }
 
 // Add custom body class
-function rc_manage_body_class( $classes ) {
-	
+function rc_manage_body_class( $classes ) {	
 	$classes[] = 'manage';
 	return $classes;
-
 }
 	
 //* Run the Genesis loop

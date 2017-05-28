@@ -33,11 +33,9 @@ function rc_archive_artists_genesis_meta() {
 }
 
 // Add custom body class
-function rc_artist_archive_body_class( $classes ) {
-	
+function rc_artist_archive_body_class( $classes ) {	
 	$classes[] = 'artist-archive rc-title-description';
 	return $classes;
-
 }
 
 // Loop to view authors with name and custom field for photo or featured image from first post
@@ -67,24 +65,23 @@ function rc_list_authors_loop() {
 		
 		foreach ( $user_query->results as $user ) {
 		
-			$id 				= $user->ID;
-			$author_first_name 	= $user->first_name;
-			$author_last_name 	= $user->last_name;
-			$author_link 		= get_author_posts_url( $id );
+			$id 		= $user->ID;
+			$first_name = $user->first_name;
+			$last_name 	= $user->last_name;
+			$link 		= get_author_posts_url( $id );
 			
-			$attachment_id 		= get_field( 'artist_photo', 'user_'.$id );
-			$size 				= "artist-image"; 
-			$author_avatar 		= wp_get_attachment_image_src( $attachment_id, $size );
+			$attachment_id 	= get_field( 'artist_photo', 'user_'.$id );
+			$avatar 		= wp_get_attachment_image_src( $attachment_id, 'artist-image' );
 
-			$fallback_image 		= '';
+			$fallback 		= '';
 
 				// If the artist/user does not have a photo in the custom field, then get_posts for that author an grab the featured image from the first post and use as fallback image
 				if( ! $attachment_id ) {
 				
-					$artist_posts = get_posts("author=" . $id . "&posts_per_page=1"); 
+					$posts = get_posts("author=" . $id . "&posts_per_page=1"); 
 					
-					foreach($artist_posts as $post) {
-						$fallback_image = get_the_post_thumbnail( $post->ID, 'artist-image' );
+					foreach( $posts as $post ) {
+						$fallback = get_the_post_thumbnail( $post->ID, 'artist-image' );
 					}		
 				}
 
@@ -93,25 +90,34 @@ function rc_list_authors_loop() {
 					
 				if( $attachment_id ) {
 					
-					echo '<a href="'.$author_link.'" class="post-image entry-image" rel="bookmark" itemprop="url">';
-						echo '<img src="'.$author_avatar[0].'" alt="'.$author_first_name.' '.$author_last_name.'" title="'.$author_first_name.' '.$author_last_name.'" itemprop="image" />';
-					echo '</a>';
+					printf('<a href="%s" class="post-image entry-image" rel="bookmark" itemprop="url"><img src="%s" alt="%s %s" itemprop="image" /></a>',
+						esc_url($link),
+						esc_url($avatar[0]),
+						esc_html($first_name),
+						esc_html($last_name)
+					);
 				
 				}else{ 
 
-	            	echo '<a href="'.$author_link.'" class="post-image entry-image" rel="bookmark" itemprop="url">'.$fallback_image.'</a>';
+	            	printf('<a href="%s" class="post-image entry-image" rel="bookmark" itemprop="url">%s</a>',
+	            		esc_url($link),
+	            		$fallback
+	            	);
 	            
 	            }
 		        
 				echo '<header class="entry-header">';
-						
-					echo '<h2 class="entry-title" itemprop="name">';
 
-						echo '<a href="'.$author_link.'" rel="bookmark" itemprop="url">'.$author_first_name.' '.$author_last_name.'</a>';
-
-					echo '</h2>';
+					printf('<h2 class="entry-title" itemprop="name"><a href="%s" rel="bookmark" itemprop="url">%s %s</a></h2>',
+						esc_url($link),
+						esc_html($first_name),
+						esc_html($last_name)
+					);
 					
-					printf(__('<a class="more-link" href="'.$author_link.'" rel="bookmark" itemprop="url">%s <i class="fa fa-long-arrow-right"></i></a>', 'rc'), 'View Artist');
+					printf('<a class="more-link" href="%s" rel="bookmark" itemprop="url">%s <i class="fa fa-long-arrow-right"></i></a>', 
+						esc_url($link),
+						esc_html__('View Artist', 'rc')
+					);
 						
 				echo '</header>';
 					

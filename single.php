@@ -12,9 +12,6 @@
 add_action( 'genesis_meta', 'rc_object_genesis_meta' );
 function rc_object_genesis_meta() {
 	
-	//* Enqueue scripts and styles
-	add_action( 'wp_enqueue_scripts', 'rc_load_object_scripts' );
-	
 	//* Add the entry meta in the entry header (requires HTML5 theme support)
 	add_action( 'genesis_entry_content', 'rc_object_meta' );
 	
@@ -29,16 +26,12 @@ function rc_object_genesis_meta() {
 
 }
 
-// Enqueue scripts
-function rc_load_object_scripts() {
-	
-	wp_enqueue_script( 'flex-slider', get_bloginfo( 'stylesheet_directory' ) . '/js/flex-slider.js', array('jquery'), CHILD_THEME_VERSION, true );
-
-}
-
 // Object meta just below post title
 function rc_object_meta() {
-	printf(__('<p><a class="more-link" rel="author" href="' . get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) . '">%s <i class="fa fa-long-arrow-right"></i></a></p>','rc'), 'View all objects by this artist');
+	printf('<p><a class="more-link" rel="author" href="%s">%s <i class="fa fa-long-arrow-right"></i></a></p>',
+		get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ),
+		__('View all objects by this artist', 'rc' )
+	);
 }
 
 // Gallery Loop
@@ -50,20 +43,36 @@ function rc_gallery_do_loop() {
 		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
 			echo '<ul class="slides">';
 				foreach( $images as $image ): 
-					echo '<li data-thumb="'.$image['sizes']['thumbnail'].'">';
-						echo '<img src="'.$image['sizes']['large'].'" alt="Made by '.get_the_author_meta( 'user_firstname' ).' '.get_the_author_meta( 'user_lastname' ).'" itemprop="workExample" />';
-						printf(__('<a href="'.$image['url'].'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'Download');
-					echo '</li>';
+					printf('<li data-thumb="%s"><img src="%s" alt="%s %s %s" itemprop="workExample"><a href="%s" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a></li>',
+						esc_html($image['sizes']['thumbnail']),
+						esc_url($image['sizes']['large']),
+						esc_html__('Made by', 'rc'),
+						esc_html( get_the_author_meta( 'user_firstname' ) ),
+						esc_html( get_the_author_meta( 'user_lastname' ) ),
+						esc_url($image['url']),
+						esc_html__('Download', 'rc')
+					);
 				endforeach;
 			echo '</ul>';
 		echo '</div>';
 	}elseif( has_post_thumbnail() ) {
 		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
 			echo '<ul class="slides">';
-				echo '<li itemprop="workExample">';
-					echo get_the_post_thumbnail(get_the_ID(), 'large', array( 'alt' => 'Made by '.get_the_author_meta( 'user_firstname' ).' '.get_the_author_meta( 'user_lastname' ).''));
-					printf(__('<a href="'.wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ).'" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a>', 'rc'), 'Download');
-				echo '</li>';
+				printf('<li itemprop="workExample">%s<a href="%s" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a></li>',
+					get_the_post_thumbnail(
+						get_the_ID(), 
+						'large', 
+						array( 
+							'alt' => sprintf('%s %s %s',
+								esc_html__('Made by', 'rc'),
+								esc_html( get_the_author_meta( 'user_firstname' ) ),
+								esc_html( get_the_author_meta( 'user_lastname' ) )
+							)
+						)
+					),
+					wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ),
+					esc_html__('Download', 'rc')
+				);
 			echo '</ul>';
 		echo '</div>';
 	}
@@ -86,65 +95,63 @@ function rc_sidebar_meta() {
 	
 	echo '<div class="one-fourth sidebar sidebar-primary" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
 	
-		// we will use the first term to load ACF data from
 		if( !empty($terms) ) {
 			
 			$term = array_pop($terms);
 		
-			$prefix = get_field('rc_form_object_prefix', $term );
+			$prefix = get_field('rc_form_object_prefix', $term );		
 			
-			echo '<div class="meta id">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'ID');
-				echo '<span class="object-id">'.$prefix . $object_id.'</span>';
-			echo '</div>';
+			printf('<div class="meta id"><span class="object-meta-heading">%s</span><span class="object-id">%s%s</span></div>',
+				esc_html__('ID', 'rc'),
+				esc_html($prefix),
+				intval($object_id)
+			);
+
 		}
-	
-		// Loop for taxonomy FORM
+
 		if( !empty($forms) ) {
-			echo '<div class="meta form">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Form');
-				echo $forms;
-			echo '</div>';
+			printf('<div class="meta form"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Form', 'rc'),
+				wp_kses_post($forms)			
+			);
 		}
 		
 		if( !empty($firings) ) {
-			// Loop for taxonomy FIRING
-			echo '<div class="meta firing">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Firing');
-				echo $firings;
-			echo '</div>';
+			printf('<div class="meta firing"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Firing', 'rc'),
+				wp_kses_post($firings)				
+			);
 		}
 		
 		if( !empty($techniques) ) {
-			// Loop for taxonomy TECHNIQUE
-			echo '<div class="meta technique">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Technique');
-				echo $techniques;
-			echo '</div>';
+			printf('<div class="meta technique"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Technique', 'rc'),
+				wp_kses_post($techniques)				
+			);
 		}
 		
-		// Dimensions
 		if($length || $width || $height) {
-			echo '<div class="meta dimensions">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Dimensions');
-			 	printf(__( '<span class="object-dimensions"><span itemprop="depth">'.$length . '</span>x<span itemprop="width">' . $width . '</span>x<span itemprop="height">' . $height .'</span> %s</span>', 'rc'), 'inches');
-			echo '</div>';
+			printf('<div class="meta dimensions"><span class="object-meta-heading">%s</span><span class="object-dimensions"><span itemprop="depth">%s</span>x<span itemprop="width">%s</span>x<span itemprop="height">%s</span> %s</span></div>',
+				esc_html__('Dimensions', 'rc'),
+				esc_html($length),
+				esc_html($width),
+				esc_html($height),
+				esc_html__('inches', 'rc')
+			);
 		}
 		
 		if( !empty($rows) ) {
-			// Loop for taxonomy ROW
-			echo '<div class="meta row">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Row');
-				echo $rows;
-			echo '</div>';
+			printf('<div class="meta row"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Row', 'rc'),
+				wp_kses_post($rows)				
+			);
 		}
 		
 		if( !empty($columns) ) {
-			// Loop for taxonomy COLUMN
-			echo '<div class="meta column">';
-				printf(__( '<span class="object-meta-heading">%s</span>', 'rc'), 'Column');
-				echo $columns;
-			echo '</div>';
+			printf('<div class="meta column"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Column', 'rc'),
+				wp_kses_post($columns)				
+			);
 		}
 		
 	echo '</div>';

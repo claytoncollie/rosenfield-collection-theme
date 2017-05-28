@@ -33,11 +33,9 @@ function rc_page_techniques_genesis_meta() {
 }
 
 // Custom body class
-function rc_page_techniques_body_class( $classes ) {
-	
+function rc_page_techniques_body_class( $classes ) {	
 	$classes[] = 'rc-page-taxonomy rc-title-description';
 	return $classes;
-
 }
 	
 // Custom loop to show featured image for first post in taxonomy
@@ -73,32 +71,40 @@ function rc_taxonomy_list( $atts ) {
 		$cats = get_categories( $args );
 		
 		if( empty( $cats ) ) break;
+
 			foreach( $cats as $cat ) {
+				
 				$img = '';
 				$get_posts_args[$args['taxonomy']] = $cat->slug;
+				
 				if ( $posts = get_posts( $get_posts_args ) ) {
 					$img = get_the_post_thumbnail( $posts[0]->ID, 'archive-image'  );
 				}
 				
-				echo '<article class="entry one-fourth '.$args["taxonomy"].'">';
+				printf('<article class="entry one-fourth %s">', $args["taxonomy"] );
 				
-					echo '<a href="'.get_term_link( $cat ).'">';
-						
-						echo $img;
-					
-					echo '</a>';
+					printf('<a href="%s" rel="bookmark" itemprop="url">%s</a>',
+						esc_url(get_term_link( $cat ) ),						
+						$img
+					);
 					
 					echo '<header class="entry-header">';
 						
-						echo '<h2 class="entry-title" itemprop="headline"><a href="'.get_term_link( $cat ).'">'.$cat->name.'</a></h2>';
+						printf('<h2 class="entry-title" itemprop="headline"><a href="%s">%s</a></h2>',
+							esc_url( get_term_link( $cat ) ),
+							esc_html($cat->name)
+						);
 					
-						printf(__('<a class="more-link" href="'.get_term_link( $cat ).'">%s <i class="fa fa-long-arrow-right"></i></a>', 'rc'), 'View Technique');
+						printf('<a class="more-link" href="%s">%s <i class="fa fa-long-arrow-right"></i></a>',
+							esc_url( get_term_link( $cat ) ),
+							esc_html__('View Firing', 'rc')
+						);
 						
 					echo '</header>';
 				
 				echo '</article>';
 				
-			}
+		}
 	}
 
 }

@@ -37,38 +37,29 @@ function rc_page_search_genesis_meta() {
 }
 
 // Add custom body class
-function rc_search_body_class( $classes ) {
-	
+function rc_search_body_class( $classes ) {	
 	$classes[] = 'search';
 	return $classes;
-
 }
 
 // Add classto content are to enable facetWP
 function rc_add_css_attr( $attributes ) {
- 
-	// add original plus extra CSS classes
 	$attributes['class'] .= ' facetwp-template';
-
-	// return the attributes
-	return $attributes;
- 
+	return $attributes; 
 }
 
 // Page title 
 function rc_do_post_title() {
-	printf(__('<h1 class="entry-title">%s</h1>', 'rc'), 'Search');
+	printf('<h1 class="entry-title">%s</h1>', esc_html__('Search', 'rc') );
 }
 
 function rc_search_sidebar() {
-
 	if(is_active_sidebar('search-sidebar') ) {
 		genesis_widget_area( 'search-sidebar', array(
 			'before' => '<div class="search">',
 			'after'  => '</div>',
 		) );
 	}
-
 }
 
 function rc_facet_search() {
@@ -77,16 +68,16 @@ function rc_facet_search() {
 
 	$args = array(
 		'post_type' => 'post',
-		'facetwp' => true, // we added this
+		'facetwp' 	=> true,
 	 ); 
 
-	function my_facetwp_is_main_query( $is_main_query, $query ) {
+	function rc_facetwp_is_main_query( $is_main_query, $query ) {
 	    if ( isset( $query->query_vars['facetwp'] ) ) {
 	        $is_main_query = true;
 	    }
 	    return $is_main_query;
 	}
-	add_filter( 'facetwp_is_main_query', 'my_facetwp_is_main_query', 10, 2 );
+	add_filter( 'facetwp_is_main_query', 'rc_facetwp_is_main_query', 10, 2 );
 
 	// Run custom loop
     genesis_custom_loop( wp_parse_args($query_args, $args) );		

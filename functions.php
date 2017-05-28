@@ -11,6 +11,7 @@
  */
 add_action( 'genesis_setup', 'rc_theme_setup', 15 );
 function rc_theme_setup() {
+
 	//* Start the engine
 	include_once( get_template_directory() . '/lib/init.php' );
 
@@ -20,7 +21,7 @@ function rc_theme_setup() {
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
 	define( 'CHILD_THEME_URL', 'http://www.rosenfieldcollection.com' );
-	define( 'CHILD_THEME_VERSION', '1.2.3' );
+	define( 'CHILD_THEME_VERSION', '1.3.4' );
 	
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_scripts_styles' );
@@ -117,10 +118,10 @@ function rc_theme_setup() {
 	//------------------------------------------------------------------------------------------------------
 	
 	//* unregister Genesis default functions
-	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-unregister.php' );
+	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/genesis.php' );
 	
 	//* Genesis schmea helper functions
-	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/rc-genesis-schema-helper-functions.php' );
+	require_once( trailingslashit( get_stylesheet_directory() ) . '/lib/schema.php' );
 	
 	// Call schema filters
 	add_filter( 'genesis_attr_entry', 			'rc_schema_visualartwork', 	20 );
@@ -132,15 +133,14 @@ function rc_theme_setup() {
 }
 
 // Enqueue scripts
-function rc_load_scripts_styles() {
-	
+function rc_load_scripts_styles() {	
 	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' );
-
-	wp_enqueue_script( 'rc-responsive-menu', get_stylesheet_directory_uri() . '/js/responsive-menu.js', array( 'jquery' ), CHILD_THEME_VERSION, true );
-	$output = array(
-		'mainMenu' => __( '<span class="helperText">Menu</span>', 'rc' ),
+	wp_enqueue_script( 'global', get_stylesheet_directory_uri() . '/js/global.min.js', array( 'jquery' ), CHILD_THEME_VERSION, true );
+	wp_localize_script( 'global', 'rosenfieldCollectionL10n', 
+		array(
+			'mainMenu' => esc_html__( '<span class="helperText">Menu</span>', 'rc' ),
+		)
 	);
-	wp_localize_script( 'rc-responsive-menu', 'rosenfieldCollectionL10n', $output );
 
 }
 
@@ -148,15 +148,11 @@ function rc_load_scripts_styles() {
 function rc_grid_body_class( $classes ) {
 
 	if( is_singular('post') || is_page('manage') || is_404() || is_page('report') ) {
-		
 		$classes[] = '';
-		return $classes;
-		
-	} else {
-		
+		return $classes;		
+	} else {		
 		$classes[] = 'rc-grid';
-		return $classes;
-		
+		return $classes;		
 	}
 }
 
@@ -168,16 +164,17 @@ function rc_entry_class( $classes ) {
 	$columns = 4;
 	
 	if( is_singular('post') || is_page('manage') || is_404() || is_page('report')  ) {
-		
 		$classes[] = '';
-		return $classes;
-		
+		return $classes;	
 	} else {
-	
+		
 		$column_classes = array( '', '', 'one-half', 'one-third', 'one-fourth', 'one-fifth', 'one-sixth' );
+		
 		$classes[] = $column_classes[$columns];
-		if( 0 == $wp_query->current_post || 0 == $wp_query->current_post % $columns )
+		
+		if( 0 == $wp_query->current_post || 0 == $wp_query->current_post % $columns ) {
 			$classes[] = 'first';
+		}
 			
 		return $classes;
 	}
@@ -191,10 +188,14 @@ function rc_add_author_name( $title ) {
 	$last_name 		= get_the_author_meta( 'last_name' );
 
 	if(empty($first_name) && empty($last_name)) {
-		return $title;
+		return esc_html( $title );
 	}
 	
-	$title .= ' <span class="artist-attribution">by</span> <span class="artist-name" itemprop="creator">' . $first_name . ' ' . $last_name . '</span>';
+	$title .= sprintf(' <span class="artist-attribution">%s</span> <span class="artist-name" itemprop="creator">%s %s</span>',
+		__('by', 'rc' ),
+		esc_html( $first_name ),
+		esc_html( $last_name )
+	);
 
 	return $title;
 
@@ -202,7 +203,10 @@ function rc_add_author_name( $title ) {
 
 // Edit read more link
 function rc_read_more() {	
-	printf( __('<a class="more-link" href="'.get_permalink( get_the_ID() ).'" rel="url">%s <i class="fa fa-long-arrow-right"></i></a>', 'rc' ), 'View Object' );
+	printf('<a class="more-link" href="%s" rel="url">%s <i class="fa fa-long-arrow-right"></i></a>', 
+		get_permalink( get_the_ID() ),
+		esc_html__('View Object', 'rc' )
+	);
 }
 	
 // Add widget area on home page just after header
@@ -219,8 +223,15 @@ function rc_home_featured_widget() {
 
 		$result = count_users();
 		
-			printf( __('<div class="home-stats"><h2>'.$result['total_users'].'</h2><p>%s</p></div>','rc'), 'Artists');
-			printf( __('<div class="home-stats"><h2>'.wp_count_posts()->publish.'</h2><p>%s</p></div>','rc'), 'Objects');
+		printf('<div class="home-stats"><h2>%s</h2><p>%s</p></div>', 
+			intval( $result['total_users'] ),
+			esc_html__('Artists', 'rc' )
+		);
+
+		printf('<div class="home-stats"><h2>%s</h2><p>%s</p></div>',
+			intval( wp_count_posts()->publish ),
+			esc_html__('Objects', 'rc')
+		);
 			
 		echo '</div></div>';
 		
@@ -231,10 +242,13 @@ function rc_home_featured_widget() {
 function rc_menu_extras( $menu, $args ) {
  
 	//* Change 'primary' to 'secondary' to add extras to the secondary navigation menu
-	if ( 'primary' !== $args->theme_location )
+	if ( 'primary' !== $args->theme_location ) {
 		return $menu;
+	}
 	
-	$menu .= '<li class="menu-item alignright"><a class="search-icon" href="'.site_url().'/search"><i class="fa fa-search"></i></a></li>';
+	$menu .= sprintf('<li class="menu-item alignright"><a class="search-icon" href="%s/search"><i class="fa fa-search"></i></a></li>', 
+		site_url() 
+	);
 	
 	return $menu;
  
@@ -245,25 +259,28 @@ function rc_do_taxonomy_title_description() {
 
 	global $wp_query;
 
-	if ( ! is_category() && ! is_tag() && ! is_tax() )
+	if( ! is_category() && ! is_tag() && ! is_tax() ) {
 		return;
+	}
 
-	if ( get_query_var( 'paged' ) >= 2 )
+	if( get_query_var( 'paged' ) >= 2 ) {
 		return;
+	}
 
 	$term = is_tax() ? get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ) : $wp_query->get_queried_object();
 
-	if ( ! $term || ! isset( $term->meta ) )
+	if( ! $term || ! isset( $term->meta ) ) {
 		return;
+	}
 
 	$headline = '';
 
 	// If we have a headline already, then return, otherwise auto-generate
-	if ( $term->meta['headline'] )
+	if( $term->meta['headline'] ) {
 		return;
-	else {
+	}else{
 		$headline = sprintf( '<h1 class="entry-title">%s</h1>', single_term_title( '', false ) );
-		printf( '<div class="taxonomy-content"><div class="wrap">%s</div></div>', $headline );
+		printf( '<div class="taxonomy-content"><div class="wrap">%s</div></div>', esc_html( $headline ) );
 	}
 
 }
@@ -271,11 +288,12 @@ function rc_do_taxonomy_title_description() {
 // Filter footer credits
 function rc_footer_creds_filter( $creds ) {
 	
-	$footer 		 = '<div class="credits">';
-	$footer 		.= '<span class="copyright">[footer_copyright] All Rights Reserved</span>';
-	$footer 		.= '<span class="credits-title">'.get_bloginfo('name').'</span>';
-	$footer 		.= '<span class="login-link">'.do_shortcode( '[footer_loginout]' ).'</span>';
-	$footer 		.= '</div>';
+	$footer  = sprintf('<div class="credits"><span class="copyright">%s %s</span><span class="credits-title">%s</span><span class="login-link">%s</span></div>',
+		'[footer_copyright]',
+		esc_html__('All Rights Reserved', 'rc'),
+		esc_html( get_bloginfo('name') ),
+		do_shortcode( '[footer_loginout]' )
+	);
 	
 	return $footer;
 }
