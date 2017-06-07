@@ -1583,6 +1583,51 @@ Home Featured Widget
 	width: 50%;
 }
 
+.gform_wrapper.rss_wrapper {
+	margin: 0;
+}
+
+.gform_wrapper .rss {
+	margin-bottom: 60px;
+}
+
+.gform_wrapper .rss .gform_body {
+    width: 75%;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.gform_wrapper .rss .gform_footer {
+    padding: 0;
+    margin: 0;
+    clear: both;
+    width: 20%;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.gform_wrapper .rss .hidden_label input.large, 
+.gform_wrapper .rss .hidden_label select.large, 
+.gform_wrapper .rss .top_label input.large, 
+.gform_wrapper .rss .top_label select.large {
+    width: 100%;
+    border: 1px solid #ddd;
+    color: #222;
+    padding: 7.5px 15px !important;
+    font-family: 'futura-pt', sans-serif !important;
+    font-size: 20px !important;
+    background-color: #fff;
+}
+
+.gform_wrapper .rss .top_label input.large::placeholder {
+	color: #222;
+	opacity: 1;
+}
+
+body .gform_wrapper .rss ul li.gfield {
+	margin-top: 0 !important;
+}
+
 /*
 Single Artist Archive
 ---------------------------------------------------------------------------------------------------- */
@@ -2607,6 +2652,21 @@ Media Queries
 
 	.artist-archive .entry img {
 		margin-bottom: 0;
+	}
+
+	.gform_wrapper .rss {
+		margin-bottom: 20px;
+	}
+
+	.gform_wrapper .rss .gform_body {
+	    width: 100%;
+	    display: block;
+	    margin-bottom: 10px;
+	}
+
+	.gform_wrapper .rss .gform_footer {
+	    width: 100%;
+	    display: block;
 	}
 
 }
