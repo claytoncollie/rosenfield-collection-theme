@@ -318,7 +318,8 @@ img.user-thumbnail {
 
 input,
 select,
-textarea {
+textarea,
+input::placeholder {
 	background-color: #000;
 	border: 1px solid #fff;
 	color: #fff;
@@ -1293,6 +1294,10 @@ p.entry-meta {
 	border-bottom: 1px dotted #000;
 }
 
+.sidebar .search .widget {
+	margin-bottom: 40px;
+}
+
 /*
 Footer Widgets
 ---------------------------------------------------------------------------------------------------- */
@@ -1607,7 +1612,7 @@ Home Featured Widget
 }
 
 .gform_wrapper .rss .hidden_label input.large, 
-.gform_wrapper .rss .hidden_label select.large, 
+.gform_wrapper .rss .hidden_label select.large,
 .gform_wrapper .rss .top_label input.large, 
 .gform_wrapper .rss .top_label select.large {
     width: 100%;
@@ -1620,6 +1625,7 @@ Home Featured Widget
 }
 
 .gform_wrapper .rss .top_label input.large::placeholder {
+	background-color: #fff;
 	color: #222;
 	opacity: 1;
 }

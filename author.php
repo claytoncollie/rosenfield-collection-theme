@@ -91,8 +91,8 @@ function rc_author_info() {
 		}
 		
 		if($bio) {
-			printf('<div class="author-bio"><p itemprop="description">%s</p></div>', 
-				wp_kses_post($bio)
+			printf('<div class="author-bio" itemprop="description">%s</div>', 
+				wp_kses_post( wpautop($bio) )
 			);
 		}
 		
