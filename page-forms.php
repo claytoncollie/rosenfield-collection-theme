@@ -70,7 +70,7 @@ function rc_taxonomy_list( $atts ) {
 		
 		$cats = get_categories( $args );
 		
-		if( empty( $cats ) ) break;
+		if( !empty( $cats ) ) {
 
 			foreach( $cats as $cat ) {
 				
@@ -104,6 +104,7 @@ function rc_taxonomy_list( $atts ) {
 				
 				echo '</article>';
 				
+			}
 		}
 	}
 

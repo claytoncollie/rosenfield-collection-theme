@@ -21,7 +21,7 @@ function rc_theme_setup() {
 	//* Child theme (do not remove)
 	define( 'CHILD_THEME_NAME', __( 'Rosenfield Collection', 'rc' ) );
 	define( 'CHILD_THEME_URL', 'http://www.rosenfieldcollection.com' );
-	define( 'CHILD_THEME_VERSION', '1.3.15' );
+	define( 'CHILD_THEME_VERSION', '1.3.16' );
 	
 	//* Enqueue scripts and styles
 	add_action( 'wp_enqueue_scripts', 'rc_load_scripts_styles' );
