@@ -4,7 +4,7 @@
 	Description: A mobile responsive and HTML5 theme built for the Genesis Framework.
 	Author: Clayton Collie
 	Author URI: http://www.claytoncollie.com/
-	Version: 1.3.16
+	Version: 1.4.8
 
 	Template: genesis
 	Template Version: 2.1
@@ -56,13 +56,6 @@
 		- Max-width: 768px
 
 */
-
-/*
-Type Kit Fit
----------------------------------------------------------------------------------------------------- */
-.wf-loading body {
-	visibility: hidden;
-}
 
 /*
 HTML5 Reset
@@ -144,7 +137,7 @@ body > div {
 body {
 	background-color: #f1f1f1;
 	color: #333;
-	font-family: "expo-serif-pro", sans-serif;
+	font-family: 'PT Serif', serif;
 	font-size: 16px;
 	font-size: 1.6rem;	
 	font-weight: 400;
@@ -245,9 +238,9 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	color: #333;
-	font-weight: 700;
+	font-weight: 400;
 	line-height: 1.2;
 	margin: 0 0 5px;
 }
@@ -324,7 +317,7 @@ input::placeholder {
 	background-color: #000;
 	border: 1px solid #fff;
 	color: #fff;
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	padding: 10px 5px;
@@ -361,7 +354,7 @@ input[type="submit"],
 	background-color: #fff;
 	color: #000;
 	cursor: pointer;
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	font-weight: 400;
@@ -424,7 +417,7 @@ input[type="search"]::-webkit-search-results-button {
 	font-size: 1.6rem;    
     text-transform: lowercase;
     font-style: italic;
-   	font-family: "expo-serif-pro", sans-serif;
+   	font-family: 'PT Serif', serif;
 	letter-spacing: 0.3px;
 }
 
@@ -815,7 +808,7 @@ Site Header
 .site-title a:hover {
 	color: #fff;
 	font-weight: 400;
-    font-family: "futura-pt", sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 36px;
     font-size: 3.6rem;
 }
@@ -839,7 +832,7 @@ Site Header
 	font-size: 1.4rem;
 	font-weight: 400;
     color: #999;
-    font-family: "expo-serif-pro", sans-serif;
+    font-family: 'PT Serif', serif;
     font-style: italic;
     letter-spacing: 1px;
 }
@@ -990,7 +983,7 @@ Site Header
 --------------------------------------------- */
 
 .nav-primary {
-	font-family: "futura-pt",sans-serif;
+	font-family: 'Lato', sans-serif;
 }
 
 .nav-primary .genesis-nav-menu a {
@@ -999,9 +992,9 @@ Site Header
 	font-size: 1.6rem;
 	text-decoration: none;
 	text-transform: uppercase;
-	padding: 10px 20px;
+	padding: 10px;
 	border: 1px solid #000;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 .nav-primary .genesis-nav-menu a:hover,
@@ -1183,7 +1176,7 @@ p.entry-meta {
 
 .pagination {
 	clear: both;
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	font-weight: 400;
@@ -1281,12 +1274,12 @@ p.entry-meta {
 
 .object-meta-heading {
     text-transform: uppercase;
-    font-family: 'futura-pt', sans-serif;
-    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
     letter-spacing: 1px;
     margin-right: 10px;
-    font-size: 13px;
-    font-size: 1.3rem;
+    font-size: 12px;
+    font-size: 1.2rem;
 	margin-left: 0;
 	display: inline-block;
 }
@@ -1304,7 +1297,7 @@ Footer Widgets
 ---------------------------------------------------------------------------------------------------- */
 .footer-widgets {
 	background-color: #000;
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	color: #fff;
@@ -1330,7 +1323,7 @@ Footer Widgets
 }
 
 .footer-widgets .widget-title {
-	font-family: "expo-serif-pro", sans-serif;
+	font-family: 'PT Serif', serif;
 	font-style: italic;
 	color: #fff;
 	font-size: 18px;
@@ -1437,7 +1430,7 @@ Site Footer
 	background-color: #000;
 	padding: 20px 0;
 	text-align: center;
-	font-family: 'futura-pt', sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 14px;
 	font-size: 1.4rem;
 }
@@ -1542,7 +1535,7 @@ Report Page Template
 
 .report .post-count { 
 	color: #333;
-	font-family: "expo-serif-pro", sans-serif;
+	font-family: 'PT Serif', serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	font-weight: 400;
@@ -1571,7 +1564,7 @@ Home Featured Widget
 
 .home-featured .widget-title,
 .search-featured .entry-title {
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 40px;
 	font-size: 4.0rem;
 }
@@ -1620,7 +1613,7 @@ Home Featured Widget
     border: 1px solid #ddd;
     color: #222;
     padding: 7.5px 15px !important;
-    font-family: 'futura-pt', sans-serif !important;
+    font-family: 'Lato', sans-serif !important;
     font-size: 20px !important;
     background-color: #fff;
 }
@@ -1661,7 +1654,7 @@ Single Artist Archive
 .rc-title-description h1.entry-title,
 .rc-page-taxonomy h1.entry-title,
 .search h1.entry-title {
-	font-family: "futura-pt", sans-serif;
+	font-family: 'Lato', sans-serif;
 	font-size: 40px;
 	font-size: 4.0rem;
 	color: #000;
@@ -1759,7 +1752,7 @@ Search Form Widget
 }
 
 .search-icon {
-	padding: 8px 20px !important;
+	padding: 8px 12px !important;
 }
 
 /*
@@ -2494,7 +2487,7 @@ Media Queries
 	}
 
 	.menu-toggle .helperText {
-		font-family: 'futura-pt', sans-serif;
+		font-family: 'Lato', sans-serif;
 	}
 
 	.site-header .menu-toggle {
