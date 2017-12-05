@@ -81,6 +81,28 @@ function rc_body_class_report( $classes ) {
 }
 
 /**
+ * Body class
+ * @param  array $classes 
+ * @return array          
+ * @since  1.2.0 
+ */
+function rc_body_class_search( $classes ) {	
+	$classes[] = 'search';
+	return $classes;
+}
+
+/**
+ * Class to activiate facetWP
+ * @param  array $classes 
+ * @return array          
+ * @since  1.2.0 
+ */
+function rc_class_facet_wp_template( $attributes ) {
+	$attributes['class'] .= ' facetwp-template';
+	return $attributes; 
+}
+
+/**
  * Add rc-grid body class to get styles, do no load on single post page	
  * @since 1.0.0
  */ 
@@ -585,6 +607,187 @@ function rc_list_all_posts() {
 	}
 	//wp_reset_postdata();		
 }
+
+/**
+ * Object meta just below post title
+ * @return string 
+ * @since  1.0.0 
+ */
+function rc_object_meta() {
+	printf('<p><a class="more-link" rel="author" href="%s">%s <i class="fa fa-long-arrow-right"></i></a></p>',
+		get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ),
+		__('View all objects by this artist', CHILD_THEME_DOMAIN )
+	);
+}
+
+/**
+ * Gallery Loop
+ * @return string 
+ * @since  1.0.0 [<description>]
+ */
+function rc_gallery_do_loop() {
+	
+	$images = get_field('images');
+
+	if( $images ) {
+		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
+			echo '<ul class="slides">';
+				foreach( $images as $image ): 
+					printf('<li data-thumb="%s"><img src="%s" alt="%s %s %s" itemprop="workExample"><a href="%s" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a></li>',
+						esc_html($image['sizes']['thumbnail']),
+						esc_url($image['sizes']['large']),
+						esc_html__('Made by', CHILD_THEME_DOMAIN),
+						esc_html( get_the_author_meta( 'user_firstname' ) ),
+						esc_html( get_the_author_meta( 'user_lastname' ) ),
+						esc_url($image['url']),
+						esc_html__('Download', CHILD_THEME_DOMAIN)
+					);
+				endforeach;
+			echo '</ul>';
+		echo '</div>';
+	}elseif( has_post_thumbnail() ) {
+		echo '<div id="slider" class="first three-fourths flexslider" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
+			echo '<ul class="slides">';
+				printf('<li itemprop="workExample">%s<a href="%s" class="button attachment"><i class="fa fa-cloud-download"></i> %s</a></li>',
+					get_the_post_thumbnail(
+						get_the_ID(), 
+						'large', 
+						array( 
+							'alt' => sprintf('%s %s %s',
+								esc_html__('Made by', CHILD_THEME_DOMAIN),
+								esc_html( get_the_author_meta( 'user_firstname' ) ),
+								esc_html( get_the_author_meta( 'user_lastname' ) )
+							)
+						)
+					),
+					wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ),
+					esc_html__('Download', CHILD_THEME_DOMAIN)
+				);
+			echo '</ul>';
+		echo '</div>';
+	}
+}
+
+/**
+ * Object meta just below post title
+ * @return string 
+ * @since  1.0.0 
+ */
+function rc_sidebar_meta() {
+	$forms 			= get_the_term_list(get_the_ID(), 'rc_form', '<span itemprop="artForm">', '</span>, <span itemprop="artForm">','</span>');
+	$firings 		= get_the_term_list(get_the_ID(), 'rc_firing', '', ', ');
+	$techniques 	= get_the_term_list(get_the_ID(), 'rc_technique', '', ', ');	
+	$rows			= get_the_term_list(get_the_ID(), 'rc_row', '', ', ');
+	$columns 		= get_the_term_list(get_the_ID(), 'rc_column', '', ', ');
+	$length			= get_field('length');
+	$width			= get_field('width');
+	$height			= get_field('height');
+	
+	// load all 'rc_form' terms for the post
+	$terms 			= get_the_terms( get_the_ID(), 'rc_form');
+	$object_id 		= get_field('object_id');
+	
+	echo '<div class="one-fourth sidebar sidebar-primary" itemscope="itemscope" itemtype="http://schema.org/VisualArtwork">';
+	
+		if( !empty($terms) ) {			
+			$term = array_pop($terms);		
+			$prefix = get_field('rc_form_object_prefix', $term );		
+			
+			printf('<div class="meta id"><span class="object-meta-heading">%s</span><span class="object-id">%s%s</span></div>',
+				esc_html__('ID', CHILD_THEME_DOMAIN),
+				esc_html($prefix),
+				intval($object_id)
+			);
+		}
+		if( !empty($forms) ) {
+			printf('<div class="meta form"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Form', CHILD_THEME_DOMAIN),
+				wp_kses_post($forms)			
+			);
+		}		
+		if( !empty($firings) ) {
+			printf('<div class="meta firing"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Firing', CHILD_THEME_DOMAIN),
+				wp_kses_post($firings)				
+			);
+		}		
+		if( !empty($techniques) ) {
+			printf('<div class="meta technique"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Technique', CHILD_THEME_DOMAIN),
+				wp_kses_post($techniques)				
+			);
+		}		
+		if($length || $width || $height) {
+			printf('<div class="meta dimensions"><span class="object-meta-heading">%s</span><span class="object-dimensions"><span itemprop="depth">%s</span>x<span itemprop="width">%s</span>x<span itemprop="height">%s</span> %s</span></div>',
+				esc_html__('Dimensions', CHILD_THEME_DOMAIN),
+				esc_html($length),
+				esc_html($width),
+				esc_html($height),
+				esc_html__('inches', CHILD_THEME_DOMAIN)
+			);
+		}		
+		if( !empty($rows) ) {
+			printf('<div class="meta row"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Row', CHILD_THEME_DOMAIN),
+				wp_kses_post($rows)				
+			);
+		}		
+		if( !empty($columns) ) {
+			printf('<div class="meta column"><span class="object-meta-heading">%s</span>%s</div>',
+				esc_html__('Column', CHILD_THEME_DOMAIN),
+				wp_kses_post($columns)				
+			);
+		}		
+	echo '</div>';
+}
+
+/**
+ * Search page title
+ * @since  1.2.0 
+ */
+function rc_do_search_title() {
+	printf('<h1 class="entry-title">%s</h1>', esc_html__('Search', CHILD_THEME_DOMAIN) );
+}
+
+/**
+ * Search widget area
+ * @since  1.2.0 
+ */
+function rc_search_sidebar() {
+	if(is_active_sidebar('search-sidebar') ) {
+		genesis_widget_area( 'search-sidebar', array(
+			'before' => '<div class="search">',
+			'after'  => '</div>',
+		) );
+	}
+}
+
+/**
+ * Search loop
+ * @since  1.2.0 
+ */
+function rc_facet_search() {
+	
+	global $query_args;
+
+	$args = array(
+		'post_type' => 'post',
+		'facetwp' 	=> true,
+	 ); 
+
+	function rc_facetwp_is_main_query( $is_main_query, $query ) {
+	    if ( isset( $query->query_vars['facetwp'] ) ) {
+	        $is_main_query = true;
+	    }
+	    return $is_main_query;
+	}
+	add_filter( 'facetwp_is_main_query', 'rc_facetwp_is_main_query', 10, 2 );
+
+	// Run custom loop
+    genesis_custom_loop( wp_parse_args($query_args, $args) );		
+	
+}
+
 
 /**
  * Filter footer credits

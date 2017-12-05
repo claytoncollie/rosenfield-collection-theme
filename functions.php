@@ -16,7 +16,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Rosenfield Collection' );
 define( 'CHILD_THEME_URL', 'http://www.rosenfieldcollection.com' );
-define( 'CHILD_THEME_VERSION', '1.4.8' );
+define( 'CHILD_THEME_VERSION', '1.4.9' );
 define( 'CHILD_THEME_DOMAIN', 'rc' );
 
 //* Includes
